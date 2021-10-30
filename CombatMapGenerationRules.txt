@@ -1,0 +1,22 @@
+1. Map should fit the screen
+    1.1 One approach: Generate Depending on the Screen ratio
+    1.2 2nd approach: Generate one size and scale it
+
+2. Map Should have different variants depending on the outside biome
+    2.1 Different ground texture depending on the biome
+    2.2 Map should have small obstacles depending on biome
+        2.2a: Small obstacles are for example:
+        -bushes
+        -rocks
+        -trees
+        -trunks
+    2.3 Map should have different big obstacles depending on the outside biome
+        2.3a:
+        -If the Combat is near a river, then the map should have a flowing river
+        -if the combat is on a castle, then the map should have walls
+        -etc etc
+        2.3b:
+        Big obstacles can cut the map in a shape or form
+        In the future the should be a mechanic that allows of crossing a big obstacle (for example building/summoning a bridge on a river obstacle)
+3. Map should have a generated navmesh that considers obstacles
+4. On the "preparation faze" of the combat a player should be able to make spawners only on his half of the map
