@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Map;
 using Extensions;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,11 @@ public class BattleMap : MonoBehaviour
     public Material CurrentMaterial;
     public Material[] Materials;
     public MeshRenderer MeshRenderer;
+    [Header("Bounds")] 
+    public Bounds ObstacleSpawnBounds;
+
+    public float ObstacleSpawnBoundsMargin;
+    public Bounds PlayerUnitPlacementBounds;
     public void SetMapScale(Vector3 scale)=>Transform.localScale = scale;
     public Vector3 GetMapScale =>Transform.localScale;
     public void SetMaterialByBiome(MapBiome biome)
@@ -38,5 +44,25 @@ public class BattleMap : MonoBehaviour
     public void SetRenderMaterial(Material inputMaterial)
     {
         MeshRenderer.material = inputMaterial;
+    }
+
+    public void SetObstaclesBounds()
+    {
+        var verticleList = gameObject.GetComponent<MeshFilter>().sharedMesh.vertices;
+        var firstVerticle = verticleList.First();
+        var lastVerticle = verticleList.Last();
+        Vector3 center = Vector3.Lerp(firstVerticle, lastVerticle, .5f);
+        var tmpBounds = new Bounds(center, lastVerticle);
+        tmpBounds.Expand(-ObstacleSpawnBoundsMargin);
+        Debug.Log($"First verticle params: {firstVerticle}");
+        Debug.Log($"Last verticle params: {lastVerticle}");
+        ObstacleSpawnBounds = tmpBounds;
+    }
+
+    void OnDrawGizmos()
+    {
+        var verticleList = gameObject.GetComponent<MeshFilter>().sharedMesh.vertices;
+        var firstVerticle = verticleList.First();
+        var lastVerticle = verticleList.Last();
     }
 }

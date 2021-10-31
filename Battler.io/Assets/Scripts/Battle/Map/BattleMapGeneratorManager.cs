@@ -2,15 +2,22 @@ using Battle.Map;
 using Extensions;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class BattleMapGeneratorManager : MonoBehaviour
 {
     public BattleMap BattleMap;
+    [Header("Biome Options")]
     public MapBiome Biome;
     public bool RandomizeBiome;
+    [Header("Obstacle Manager")] 
+    public ObstacleGeneratorManager ObstacleGeneratorManager;
+    
     private void Awake()
     {
         SetMapSize();
         SetMapBiome();
+        ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
+        BattleMap.SetObstaclesBounds();
+        ObstacleGeneratorManager.SpawnObstacles();
     }
 
     private Vector3 GenerateMapSizeFromScreen()
@@ -32,4 +39,6 @@ public class MapGenerator : MonoBehaviour
     {
         Biome = (MapBiome)typeof(MapBiome).GetRandomEnumValue();
     }
+
+    
 }
