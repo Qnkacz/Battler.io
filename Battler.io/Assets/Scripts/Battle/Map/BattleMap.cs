@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Battle.Map;
+using Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,6 @@ public class BattleMap : MonoBehaviour
 
     public void SetRandomBiome()
     {
-        Array values = Enum.GetValues(typeof(MapBiome));
-        MapBiome = (MapBiome)values.GetValue(Random.Range(0,values.Length));
+        MapBiome = (MapBiome)typeof(MapBiome).GetRandomEnumValue();
     }
 }
