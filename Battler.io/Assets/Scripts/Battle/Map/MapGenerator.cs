@@ -1,14 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Battle.Map;
+using Extensions;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
     public BattleMap BattleMap;
+    public MapBiome Biome;
+    public bool RandomizeBiome;
     private void Awake()
     {
-        BattleMap.SetMapScale(GenerateMapSizeFromScreen());
+        SetMapSize();
+        SetMapBiome();
     }
 
     private Vector3 GenerateMapSizeFromScreen()
@@ -17,5 +19,17 @@ public class MapGenerator : MonoBehaviour
         float width = height * Screen.width / Screen.height;
         return new Vector3(width,1,height)/5;
     }
-    
+
+    public void SetMapSize() => BattleMap.SetMapScale(GenerateMapSizeFromScreen());
+    public void SetMapBiome()
+    {
+        if(RandomizeBiome) SetRandomBiome();
+        
+        BattleMap.SetBiome(Biome);
+    }
+
+    private void SetRandomBiome()
+    {
+        Biome = (MapBiome)typeof(MapBiome).GetRandomEnumValue();
+    }
 }

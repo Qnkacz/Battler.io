@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleMap: {fileID: 1059452372}
+  Biome: 3
+  RandomizeBiome: 1
 --- !u!4 &102775999
 Transform:
   m_ObjectHideFlags: 0
@@ -292,8 +294,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669e72c2f836a4c25adb983aee254681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapTransform: {fileID: 1059452376}
-  MapBiome: 0
+  Transform: {fileID: 1059452376}
+  Biome: 0
+  CurrentMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  Materials:
+  - {fileID: 2100000, guid: 4a4bdd9bb152bf122974e7504f26c77d, type: 2}
+  - {fileID: 2100000, guid: ff958bfb52c4986cba01c7f387233ca6, type: 2}
+  - {fileID: 2100000, guid: ce873fbfa1fe4dbc3a5919c5a7a3bd02, type: 2}
+  - {fileID: 2100000, guid: 027a76670530c7a95b67a4b2d4d572f4, type: 2}
+  MeshRenderer: {fileID: 1059452374}
 --- !u!64 &1059452373
 MeshCollider:
   m_ObjectHideFlags: 0
