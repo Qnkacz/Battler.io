@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Battle.Map;
-using Extensions;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -48,21 +44,17 @@ public class BattleMap : MonoBehaviour
 
     public void SetObstaclesBounds()
     {
-        var verticleList = gameObject.GetComponent<MeshFilter>().sharedMesh.vertices;
-        var firstVerticle = verticleList.First();
-        var lastVerticle = verticleList.Last();
-        Vector3 center = Vector3.Lerp(firstVerticle, lastVerticle, .5f);
-        var tmpBounds = new Bounds(center, lastVerticle);
-        tmpBounds.Expand(-ObstacleSpawnBoundsMargin);
-        Debug.Log($"First verticle params: {firstVerticle}");
-        Debug.Log($"Last verticle params: {lastVerticle}");
+        var tmpBounds = gameObject.GetComponent<Renderer>().bounds;
+        tmpBounds.Expand(new Vector3(-ObstacleSpawnBoundsMargin,0,-ObstacleSpawnBoundsMargin));
         ObstacleSpawnBounds = tmpBounds;
     }
 
-    void OnDrawGizmos()
+    public Vector3 GetRandomPositionInsideBound(Bounds inputBound)
     {
-        var verticleList = gameObject.GetComponent<MeshFilter>().sharedMesh.vertices;
-        var firstVerticle = verticleList.First();
-        var lastVerticle = verticleList.Last();
+        return new Vector3(
+            Random.Range(inputBound.min.x,inputBound.max.x),
+            Transform.position.y,
+            Random.Range(inputBound.min.z,inputBound.max.z)
+        );
     }
 }

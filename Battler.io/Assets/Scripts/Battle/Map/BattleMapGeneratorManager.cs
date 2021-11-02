@@ -8,7 +8,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
     [Header("Biome Options")]
     public MapBiome Biome;
     public bool RandomizeBiome;
-    [Header("Obstacle Manager")] 
+    [Header("Obstacles")] 
     public ObstacleGeneratorManager ObstacleGeneratorManager;
     
     private void Awake()

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Battle.Map.SmallObstackes;
 using UnityEngine;
@@ -13,6 +12,8 @@ public class ObstacleGeneratorManager : MonoBehaviour
 
     public int ObstaclesAmountFluctuation;
     public int ObstaclesDelta;
+    [Space(5)]
+    public GameObject ObstacleContainer;
 
     [Header("Obstacle Arrays")] 
     public SmallObstaclePair[] PlaceholderObstacles;
@@ -48,7 +49,8 @@ public class ObstacleGeneratorManager : MonoBehaviour
 
     public void SpawnRandomObstacle()
     {
-        GameObject spawnedObstacle = Instantiate(PlaceholderRandomObstacle);
+        GameObject spawnedObstacle = Instantiate(PlaceholderRandomObstacle, ObstacleContainer.transform, true);
+        spawnedObstacle.transform.position = GetRandomObstaclePosition();
         AddObstacleToCategory(spawnedObstacle);
     }
 
@@ -70,6 +72,12 @@ public class ObstacleGeneratorManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private Vector3 GetRandomObstaclePosition()
+    {
+        return BattleMapGeneratorManager.BattleMap.GetRandomPositionInsideBound(
+            BattleMapGeneratorManager.BattleMap.ObstacleSpawnBounds);
     }
 }
 
