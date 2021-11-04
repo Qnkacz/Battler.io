@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
+
+namespace Battle.Unit
+{
+    class CombatUnit : MonoBehaviour, IUnit
+    {
+        [Header("Unit Info")]
+        public string Name;
+        public CombatAffiliation Owner;
+        public UnitType UnitType;
+        public UnitAttackType AttackType;
+        public UnitFaction Faction;
+        public UnitMovementType MovementType;
+        public Image Portrait;
+        [Header("Combat Information")]
+        public CombatAffiliation Allies;
+        public CombatAffiliation Enemies;
+        public float AttackCooldown;
+        public float MeleeDamage;
+        public float RangedDamage;
+        public AttackRange MeleeRange;
+        public AttackRange RangedRange;
+        [Header("Movement")]
+        public float MovementSpeed;
+        public NavMeshAgent NavMeshAgent;
+        [Header("Vitality")]
+        public float HP;
+        public float DamageResist;
+        public float MagicResist;
+        
+
+        public void Attack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DealDamage(IUnit target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Despawn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Die()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Move()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Spawn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakeDamageFrom(IUnit enemy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveTo(Vector3 postiotion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Setup()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
