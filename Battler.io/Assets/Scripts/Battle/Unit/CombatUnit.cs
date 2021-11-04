@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Battle.Unit
 {
-    class CombatUnit : MonoBehaviour, IUnit
+    public class CombatUnit : MonoBehaviour, IUnit
     {
         [Header("Unit Info")]
         public string Name;
@@ -22,6 +22,8 @@ namespace Battle.Unit
         [Header("Combat Information")]
         public CombatAffiliation Allies;
         public CombatAffiliation Enemies;
+        public bool CanAttackMelee;
+        public bool CanAttackRanged;
         public float AttackCooldown;
         public float MeleeDamage;
         public float RangedDamage;
@@ -34,7 +36,27 @@ namespace Battle.Unit
         public float HP;
         public float DamageResist;
         public float MagicResist;
-        
+        [Header("Visibility")] 
+        public Material Material;
+        public Renderer Renderer;
+        public bool IsVisible;
+
+        private void Awake()
+        {
+            Setup();
+        }
+
+        private void SetUnitColor()
+        {
+            var unitColor = Faction switch
+            {
+                UnitFaction.Human=>Color.blue,
+                UnitFaction.Undead=>Color.red,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            print(unitColor);
+            Renderer.material.color=unitColor;
+        }
 
         public void Attack()
         {
@@ -77,6 +99,11 @@ namespace Battle.Unit
         }
 
         public void Setup()
+        {
+            SetUnitColor();
+        }
+
+        public void ChangeFactionTo(UnitFaction faction)
         {
             throw new NotImplementedException();
         }

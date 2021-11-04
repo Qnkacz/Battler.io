@@ -14,4 +14,5 @@ public interface IUnit
     void Spawn();
     void MoveTo(Vector3 postiotion);
     void Setup();
+    void ChangeFactionTo(UnitFaction faction);
 }
