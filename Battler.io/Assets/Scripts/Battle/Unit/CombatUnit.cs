@@ -54,7 +54,6 @@ namespace Battle.Unit
                 UnitFaction.Undead=>Color.red,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            print(unitColor);
             Renderer.material.color=unitColor;
         }
 
