@@ -20,7 +20,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
         ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
         BattleMap.SetObstaclesBounds();
         ObstacleGeneratorManager.SpawnObstacles();
-        NavigationManager.RebakeAll();
+        NavigationManager.BakeAll();
     }
 
     private Vector3 GenerateMapSizeFromScreen()

@@ -8,7 +8,7 @@ public class NavigationManager : MonoBehaviour
     public NavMeshSurface LandUnitSurface;
     public NavMeshSurface FlyingUnitsSurface;
 
-    public void RebakeAll()
+    public void BakeAll()
     {
         LandUnitSurface.BuildNavMesh();
         FlyingUnitsSurface.BuildNavMesh();
