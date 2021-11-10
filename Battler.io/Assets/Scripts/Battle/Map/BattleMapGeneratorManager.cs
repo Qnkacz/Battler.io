@@ -8,9 +8,11 @@ public class BattleMapGeneratorManager : MonoBehaviour
     [Header("Biome Options")]
     public MapBiome Biome;
     public bool RandomizeBiome;
-    [Header("Obstacles")] 
+    [Space(10)] 
     public ObstacleGeneratorManager ObstacleGeneratorManager;
-    
+
+    [Space(10)] 
+    public NavigationManager NavigationManager;
     private void Awake()
     {
         SetMapSize();
@@ -18,6 +20,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
         ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
         BattleMap.SetObstaclesBounds();
         ObstacleGeneratorManager.SpawnObstacles();
+        NavigationManager.RebakeAll();
     }
 
     private Vector3 GenerateMapSizeFromScreen()

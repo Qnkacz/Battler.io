@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6842371918082333992}
   - component: {fileID: 6842371918082333995}
   - component: {fileID: 6842371918082333999}
+  - component: {fileID: 4488794113725485981}
   m_Layer: 0
   m_Name: Placeholder_Obstacle_Small_01
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6842371918082333994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 10, y: 20, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -112,3 +113,19 @@ MonoBehaviour:
   Name: smol
   obstacleSizeCategory: 0
   RandomizeSizeCategory: 0
+--- !u!114 &4488794113725485981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6842371918082333994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: f2652fae
