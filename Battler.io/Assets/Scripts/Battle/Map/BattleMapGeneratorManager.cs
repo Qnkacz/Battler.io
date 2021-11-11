@@ -13,16 +13,6 @@ public class BattleMapGeneratorManager : MonoBehaviour
 
     [Space(10)] 
     public NavigationManager NavigationManager;
-    private void Awake()
-    {
-        SetMapSize();
-        SetMapBiome();
-        ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
-        BattleMap.SetObstaclesBounds();
-        ObstacleGeneratorManager.SpawnObstacles();
-        NavigationManager.BakeAll();
-    }
-
     private Vector3 GenerateMapSizeFromScreen()
     {
         float height = Camera.main.orthographicSize;
@@ -43,5 +33,13 @@ public class BattleMapGeneratorManager : MonoBehaviour
         Biome = (MapBiome)typeof(MapBiome).GetRandomEnumValue();
     }
 
-    
+    public void GenerateMap()
+    {
+        SetMapSize();
+        SetMapBiome();
+        ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
+        BattleMap.SetObstaclesBounds();
+        ObstacleGeneratorManager.SpawnObstacles();
+        NavigationManager.BakeAll();
+    }
 }
