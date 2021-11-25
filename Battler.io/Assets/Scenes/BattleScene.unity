@@ -2826,6 +2826,18 @@ MonoBehaviour:
   MaxUnitsOnScreen: {fileID: 840212588}
   ObstaclesAmount: {fileID: 967433703}
   UnitsOptions: {fileID: 830488143}
+  exportOptions:
+    Biome: 0
+    AmountOfObstacles: 0
+    MaxUnitsOnScreen: 0
+    TotalHumanUnits: 0
+    TotalAIUnits: 0
+    TotalHumanTroops: 0
+    TotalHumanArchers: 0
+    TotalHumanFlying: 0
+    TotalAITroops: 0
+    TotalAIArchers: 0
+    TotalAIFlying: 0
 --- !u!1 &484567800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5513,9 +5525,6 @@ MonoBehaviour:
   ArcherSlider: {fileID: 833464245}
   FlyingSlider: {fileID: 1653108786}
   UnitPercentage: 0
-  TroopPercentage: 0
-  ArcherPercentage: 0
-  FlyingPercentage: 0
 --- !u!1 &991442368
 GameObject:
   m_ObjectHideFlags: 0
@@ -10725,7 +10734,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2050866825}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 473608990}
+        m_TargetAssemblyTypeName: Options_generation, Assembly-CSharp
+        m_MethodName: PressButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2050866825
 MonoBehaviour:
   m_ObjectHideFlags: 0
