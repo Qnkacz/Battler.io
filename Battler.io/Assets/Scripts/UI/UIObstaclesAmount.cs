@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -8,6 +9,7 @@ namespace UI
     public class UIObstaclesAmount : MonoBehaviour
     {
         public TextMeshProUGUI Text;
+        public Slider Slider;
         public int MaxAmountOfObstacles;
         public int ChosenAmountOfObstacles;
         public bool AmountIsRandomized;
@@ -17,6 +19,12 @@ namespace UI
             ChosenAmountOfObstacles = (int)value;
             Text.SetText(value.ToString());
         }
-        public void IsAmountOfObstaclesRandomized(bool value) => AmountIsRandomized = value;
+
+        public void IsAmountOfObstaclesRandomized(bool value)
+        {
+            AmountIsRandomized = value;
+            Slider.interactable = !value;
+            Text.SetText(value ? "Random" : $"{ChosenAmountOfObstacles}");
+        }
     }
 }
