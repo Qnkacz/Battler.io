@@ -26,6 +26,11 @@ public class Options_generation : MonoBehaviour
     public void PressButton()
     {
         ExportOptionsFromUI();
+
+        // Pass set amount of obstacles from UI to GM
+        FindObjectOfType<ObstacleGeneratorManager>().SetOptionsFromUI(exportOptions.AmountOfObstacles);
+        // Pass set biome type from UI to GM
+        FindObjectOfType<BattleMapGeneratorManager>().SetOptionsFromUI(exportOptions.Biome);
     }
 
     public void ExportOptionsFromUI()

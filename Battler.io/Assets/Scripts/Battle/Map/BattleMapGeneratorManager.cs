@@ -42,4 +42,9 @@ public class BattleMapGeneratorManager : MonoBehaviour
         ObstacleGeneratorManager.SpawnObstacles();
         NavigationManager.BakeAll();
     }
+
+    public void SetOptionsFromUI( MapBiome _Biome)
+    {
+        Biome = _Biome;
+    }
 }

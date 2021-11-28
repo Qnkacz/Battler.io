@@ -15,7 +15,7 @@ public class ObstacleGeneratorManager : MonoBehaviour
     [Space(5)]
     public GameObject ObstacleContainer;
 
-    [Header("Obstacle Arrays")] 
+    [Header("Obstacle Arrays")]
     public SmallObstaclePair[] PlaceholderObstacles;
 
     public GameObject PlaceholderRandomObstacle;
@@ -27,7 +27,7 @@ public class ObstacleGeneratorManager : MonoBehaviour
     // Start is called before the first frame update
     public void CalculateAmountOfSmallObstacles()
     {
-        if(RandomizeSmallObjectAmount) SetRandomAMountOfObstacles();
+        if (RandomizeSmallObjectAmount) SetRandomAMountOfObstacles();
         else SetPreciseAmountOfObstacles();
     }
 
@@ -74,7 +74,12 @@ public class ObstacleGeneratorManager : MonoBehaviour
         }
     }
 
-    private Vector3 GetRandomObstaclePosition()
+    public void SetOptionsFromUI(int obstacles_from_UI)
+    {
+        ObstaclesBaseAmount = obstacles_from_UI;
+    }
+
+private Vector3 GetRandomObstaclePosition()
     {
         return BattleMapGeneratorManager.BattleMap.GetRandomPositionInsideBound(
             BattleMapGeneratorManager.BattleMap.ObstacleSpawnBounds);
