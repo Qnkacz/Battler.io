@@ -40,14 +40,18 @@ public class Options_generation : MonoBehaviour
         // Pass set amount of obstacles from UI to GM
         FindObjectOfType<ObstacleGeneratorManager>().SetOptionsFromUI(exportOptions.AmountOfObstacles);
         // Pass set biome type from UI to GM
-        FindObjectOfType<BattleMapGeneratorManager>().SetOptionsFromUI(exportOptions.Biome);
+        var MapGenerationManager = FindObjectOfType<BattleMapGeneratorManager>();
+        MapGenerationManager.SetOptionsFromUI(exportOptions.Biome);
         // Pass unit totals to UnitGenerator from UI
         FindObjectOfType<UnitGenerator>().SetOptionsFromUI(
             exportOptions.TotalHumanUnits, exportOptions.TotalAIUnits,
             HumanUnits, AIUnits);
-
+        
         // Hide the UI
         UICanvas.SetActive(false);
+        
+        //Generate Map
+        MapGenerationManager.GenerateMap();
     }
 
     public void ExportOptionsFromUI()

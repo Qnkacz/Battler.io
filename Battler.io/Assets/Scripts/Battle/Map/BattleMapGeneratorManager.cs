@@ -21,24 +21,11 @@ public class BattleMapGeneratorManager : MonoBehaviour
     }
 
     public void SetMapSize() => BattleMap.SetMapScale(GenerateMapSizeFromScreen());
-    public void SetMapBiome()
-    {
-        if(RandomizeBiome) SetRandomBiome();
-        
-        BattleMap.SetBiome(Biome);
-    }
-
-    private void SetRandomBiome()
-    {
-        Biome = (MapBiome)typeof(MapBiome).GetRandomEnumValue();
-    }
-
     public void GenerateMap()
     {
         SetMapSize();
-        SetMapBiome();
-        ObstacleGeneratorManager.CalculateAmountOfSmallObstacles();
         BattleMap.SetObstaclesBounds();
+        BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
         NavigationManager.BakeAll();
     }

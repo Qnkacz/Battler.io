@@ -41,7 +41,7 @@ public class ObstacleGeneratorManager : MonoBehaviour
 
     public void SpawnObstacles()
     {
-        for (int i = 0; i < ObstaclesDelta; i++)
+        for (int i = 0; i < ObstaclesBaseAmount; i++)
         {
             SpawnRandomObstacle();
         }
