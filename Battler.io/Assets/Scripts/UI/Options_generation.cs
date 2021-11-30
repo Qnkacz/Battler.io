@@ -27,10 +27,23 @@ public class Options_generation : MonoBehaviour
     {
         ExportOptionsFromUI();
 
+        // Prep arrays for trespass
+        int[] HumanUnits = {exportOptions.TotalHumanTroops,
+                            exportOptions.TotalHumanArchers,
+                            exportOptions.TotalHumanFlying};
+
+        int[] AIUnits = {exportOptions.TotalAITroops,
+                         exportOptions.TotalAIArchers,
+                         exportOptions.TotalAIFlying};
+
         // Pass set amount of obstacles from UI to GM
         FindObjectOfType<ObstacleGeneratorManager>().SetOptionsFromUI(exportOptions.AmountOfObstacles);
         // Pass set biome type from UI to GM
         FindObjectOfType<BattleMapGeneratorManager>().SetOptionsFromUI(exportOptions.Biome);
+        // Pass unit totals to UnitGenerator from UI
+        FindObjectOfType<UnitGenerator>().SetOptionsFromUI(
+            exportOptions.TotalHumanUnits, exportOptions.TotalAIUnits,
+            HumanUnits, AIUnits);
     }
 
     public void ExportOptionsFromUI()

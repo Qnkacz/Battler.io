@@ -525,8 +525,9 @@ GameObject:
   - component: {fileID: 102775998}
   - component: {fileID: 102776000}
   - component: {fileID: 102776001}
+  - component: {fileID: 102776002}
   m_Layer: 0
-  m_Name: MapGenerator
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,6 +608,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LandUnitSurface: {fileID: 554761427}
   FlyingUnitsSurface: {fileID: 416088858}
+--- !u!114 &102776002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102775997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25797e88c32465040892fe257affe358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HumanUnitCap: 0
+  AIUnitCap: 0
+  HuTrooperCap: 0
+  HuArcherCap: 0
+  HuFlyingCap: 0
+  AITrooperCap: 0
+  AIArcherCap: 0
+  AIFlyingCap: 0
 --- !u!1 &120746698
 GameObject:
   m_ObjectHideFlags: 0
