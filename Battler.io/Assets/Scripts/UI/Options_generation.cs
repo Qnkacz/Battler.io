@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 
 public class Options_generation : MonoBehaviour
 {
+    public GameObject UICanvas;
     public UIBiomeChooser BiomeChooser;
     public UIMaxUnitsOnScreen MaxUnitsOnScreen;
     public UIObstaclesAmount ObstaclesAmount;
@@ -44,6 +45,9 @@ public class Options_generation : MonoBehaviour
         FindObjectOfType<UnitGenerator>().SetOptionsFromUI(
             exportOptions.TotalHumanUnits, exportOptions.TotalAIUnits,
             HumanUnits, AIUnits);
+
+        // Hide the UI
+        UICanvas.SetActive(false);
     }
 
     public void ExportOptionsFromUI()
