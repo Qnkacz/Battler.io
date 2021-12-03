@@ -63,7 +63,7 @@ public class BattleMap : MonoBehaviour
         AIUnitPlacementBounds = aiBounds;
     }
 
-    public Vector3 GetRandomPositionInsideBound(Bounds inputBound)
+    public Vector3 GetRandomPositionInsideObstacleBound(Bounds inputBound)
     {
         return new Vector3(
             Random.Range(inputBound.min.x,inputBound.max.x),
@@ -75,7 +75,7 @@ public class BattleMap : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(PlayerUnitPlacementBounds.center,PlayerUnitPlacementBounds.extents);
+        Gizmos.DrawCube(PlayerUnitPlacementBounds.center,PlayerUnitPlacementBounds.extents);
         
         Gizmos.color = Color.black;
         Gizmos.DrawCube(AIUnitPlacementBounds.center,AIUnitPlacementBounds.extents);

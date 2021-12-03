@@ -5,9 +5,8 @@ namespace Battle.Map
 {
     public class SpawnerManager : MonoBehaviour
     {
+        public List<Spawner> AllSpawners;
         public List<Spawner> HumanSpawners;
         public List<Spawner> AiSpawners;
-        
-        
     }
 }
