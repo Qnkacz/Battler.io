@@ -13,6 +13,8 @@ public class BattleMapGeneratorManager : MonoBehaviour
 
     [Space(10)] 
     public NavigationManager NavigationManager;
+
+    [Space(10)] public SpawnerManager SpawnerManager;
     private Vector3 GenerateMapSizeFromScreen()
     {
         float height = Camera.main.orthographicSize;
@@ -25,6 +27,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
     {
         SetMapSize();
         BattleMap.SetObstaclesBounds();
+        BattleMap.SetSpawnerPlacementBounds();
         BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
         NavigationManager.BakeAll();

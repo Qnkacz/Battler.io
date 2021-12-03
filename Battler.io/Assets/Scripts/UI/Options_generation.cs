@@ -98,8 +98,6 @@ public class Options_generation : MonoBehaviour
     {
         var maxUnits = exportOptions.MaxUnitsOnScreen;
         var exportValue = (int)(maxUnits * UnitsOptions.HumanUnits.UnitPercentage);
-        print(maxUnits);
-        print(exportValue);
         exportOptions.SetTotalHumanUnits(exportValue);
     }
 

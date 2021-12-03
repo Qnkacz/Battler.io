@@ -16,6 +16,7 @@ public class BattleMap : MonoBehaviour
 
     public float ObstacleSpawnBoundsMargin;
     public Bounds PlayerUnitPlacementBounds;
+    public Bounds AIUnitPlacementBounds;
     public void SetMapScale(Vector3 scale)=>Transform.localScale = scale;
     public Vector3 GetMapScale =>Transform.localScale;
     public void SetMaterialByBiome(MapBiome biome)
@@ -49,6 +50,19 @@ public class BattleMap : MonoBehaviour
         ObstacleSpawnBounds = tmpBounds;
     }
 
+    public void SetSpawnerPlacementBounds()
+    {
+        var humanBunds = gameObject.GetComponent<Renderer>().bounds;
+        humanBunds.center = new Vector3(humanBunds.extents.x / 2, humanBunds.center.y, humanBunds.center.z);
+        humanBunds.extents = new Vector3(humanBunds.extents.x, humanBunds.extents.y, humanBunds.extents.z*2);
+        PlayerUnitPlacementBounds = humanBunds;
+
+        var aiBounds = humanBunds;
+
+        aiBounds.center = new Vector3(humanBunds.center.x * -1, humanBunds.center.y, humanBunds.center.z);
+        AIUnitPlacementBounds = aiBounds;
+    }
+
     public Vector3 GetRandomPositionInsideBound(Bounds inputBound)
     {
         return new Vector3(
@@ -56,5 +70,14 @@ public class BattleMap : MonoBehaviour
             Transform.position.y,
             Random.Range(inputBound.min.z,inputBound.max.z)
         );
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(PlayerUnitPlacementBounds.center,PlayerUnitPlacementBounds.extents);
+        
+        Gizmos.color = Color.black;
+        Gizmos.DrawCube(AIUnitPlacementBounds.center,AIUnitPlacementBounds.extents);
     }
 }
