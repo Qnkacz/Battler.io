@@ -6,9 +6,13 @@ public class Spawner : MonoBehaviour
     // On instantiation it should lock to only 1RACE && 1TYPE
     // Recieves 
     public int UnitCap;
-    public GameObject Unit;
     public float SpawnCooldown;
     public int OffsetUpperLimit;
+    public int MaxHealth;
+    public int CurrentHealth;
+
+    public GameObject Unit;
+    public Healthbar Healthbar;
 
     private float Timer;
 
@@ -19,7 +23,10 @@ public class Spawner : MonoBehaviour
         SpawnCooldown = Mathf.Abs(SpawnCooldown);
         UnitCap = Mathf.Abs(UnitCap);
 
-        //
+        // Set healthbar max value to spawners max healthbar
+        Healthbar.SetMaxHealth(MaxHealth);
+
+        // Check whether we set any unit to spawn
         if (Unit == null)
         {
             gameObject.SetActive(false);
@@ -31,6 +38,13 @@ public class Spawner : MonoBehaviour
     {
         Timer += Time.deltaTime;
         Spawn();
+
+        // DELETE THIS WHEN WE WILL ACTUALLY USE THE TAKEDAMAGE() FUNC
+        // ------------------------------------------
+        Healthbar.SetHealth(CurrentHealth);
+        // ------------------------------------------
+
+
     }
 
     private void Spawn()
@@ -50,5 +64,15 @@ public class Spawner : MonoBehaviour
             // Reset the timer so cooldown is up
             Timer = 0;
         }
+    }
+
+    public void TakeDamage(int DamageTaken)
+    {
+        if (CurrentHealth <= 0)
+        {
+            // Destroy object? Disable? Disable'n'move?
+            Debug.Log("Spawner got rekt.");
+        }
+        Healthbar.SetHealth(CurrentHealth);
     }
 }
