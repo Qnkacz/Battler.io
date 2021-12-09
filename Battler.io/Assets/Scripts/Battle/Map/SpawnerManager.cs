@@ -19,7 +19,8 @@ namespace Battle.Map
         public GameObject AISpawnerContainer;
         [Space(10)]
         public Spawner SpawnerPrefab;
-        public void PlaceSpawner(UnitFaction faction)
+
+        private void PlaceSpawner(UnitFaction faction)
         {
             var obj = Instantiate(SpawnerPrefab.gameObject);
             var objScript = obj.GetComponent<Spawner>();
@@ -46,23 +47,64 @@ namespace Battle.Map
 
         public void SetupSpawners(SpawnerConfig config)
         {
-            SetupHuman(config);
-            SetupUndead(config);
+            SetupSpawnerByFaction(config,UnitFaction.Human);
+            SetupSpawnerByFaction(config,UnitFaction.Undead);
         }
 
-        private void SetupHuman(SpawnerConfig config)
+        /// <summary>
+        /// Sets up spawners by config and faction
+        /// </summary>
+        /// <param name="config"> Spawner config class to get info from</param>
+        /// <param name="faction"> Faction you want to setup</param>
+        private void SetupSpawnerByFaction(SpawnerConfig config, UnitFaction faction)
         {
-            for (var i = 0; i < config.TotalHumanSpawners; i++)
+            int spawnerAmount = faction switch
             {
-                PlaceSpawner(UnitFaction.Human);
+                UnitFaction.Human => config.TotalHumanSpawners,
+                UnitFaction.Undead => config.TotalUndeadSpawners,
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+            };
+            
+            for (var i = 0; i < spawnerAmount; i++)
+            {
+                PlaceSpawner(faction);
             }
-        }
 
-        private void SetupUndead(SpawnerConfig config)
-        {
-            for (int i = 0; i < config.TotalUndeadSpawners; i++)
+            var tmpTroops = faction switch
             {
-                PlaceSpawner(UnitFaction.Undead);
+                UnitFaction.Human => config.HumanTroopsSpawnerAmount,
+                UnitFaction.Undead => config.UndeadTroopsSpawnerAmount,
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+            };
+            
+            var tmpArchers = faction switch
+            {
+                UnitFaction.Human => config.HumanArcherSpawnerAmount,
+                UnitFaction.Undead => config.UndeadTArcherSpawnerAmount,
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+            };
+            var list = faction switch
+            {  
+                UnitFaction.Human => HumanSpawners,
+                UnitFaction.Undead => UndeadSpawners,
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+            };
+            foreach (var spawner in list)
+            {
+                if (tmpTroops > 0)
+                {
+                    spawner.Type = UnitAttackType.Melee;
+                    tmpTroops--;
+                }
+                else if (tmpArchers > 0)
+                {
+                    spawner.Type = UnitAttackType.Range;
+                    tmpArchers--;
+                }
+                else
+                {
+                    spawner.Type = UnitAttackType.Flying;
+                }
             }
         }
     }
@@ -70,8 +112,6 @@ namespace Battle.Map
     [Serializable]
     public class SpawnerConfig
     {
-        public int TotalSpawnerAmount;
-        
         [Header("Human")] 
         public int TotalHumanSpawners;
         public int HumanTroopsSpawnerAmount;
