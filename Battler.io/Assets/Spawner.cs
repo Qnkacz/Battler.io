@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Battle.Unit;
+using Extensions;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -10,6 +13,13 @@ public class Spawner : MonoBehaviour
     public int OffsetUpperLimit;
     public int MaxHealth;
     public int CurrentHealth;
+
+    public bool IsWorking;
+    
+    public UnitFaction Faction;
+    public UnitType Type;
+
+    public List<IUnit> Units;
 
     public GameObject Unit;
     public Healthbar Healthbar;
@@ -50,7 +60,7 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         // If cooldown is down
-        if (Timer >= SpawnCooldown)
+        if (Timer >= SpawnCooldown && IsWorking)
         {
             // Randomize position fluctuation
             float[] Offset = { UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit), UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit) };
@@ -74,5 +84,10 @@ public class Spawner : MonoBehaviour
             Debug.Log("Spawner got rekt.");
         }
         Healthbar.SetHealth(CurrentHealth);
+    }
+
+    public void SetRandomPositionInsideBounds(Bounds bound)
+    {
+        transform.position = bound.GetRandomPositionInsideBound();
     }
 }

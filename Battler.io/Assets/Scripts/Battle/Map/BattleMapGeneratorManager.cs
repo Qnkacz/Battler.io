@@ -1,9 +1,12 @@
+using System;
 using Battle.Map;
+using Battle.Unit;
 using Extensions;
 using UnityEngine;
 
 public class BattleMapGeneratorManager : MonoBehaviour
 {
+    public static BattleMapGeneratorManager GameManager;
     public BattleMap BattleMap;
     [Header("Biome Options")]
     public MapBiome Biome;
@@ -15,6 +18,12 @@ public class BattleMapGeneratorManager : MonoBehaviour
     public NavigationManager NavigationManager;
 
     [Space(10)] public SpawnerManager SpawnerManager;
+
+    private void Awake()
+    {
+        GameManager = this;
+    }
+
     private Vector3 GenerateMapSizeFromScreen()
     {
         float height = Camera.main.orthographicSize;
@@ -30,11 +39,25 @@ public class BattleMapGeneratorManager : MonoBehaviour
         BattleMap.SetSpawnerPlacementBounds();
         BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
+        SetupSpawners();
         NavigationManager.BakeAll();
     }
 
     public void SetOptionsFromUI( MapBiome _Biome)
     {
         Biome = _Biome;
+    }
+
+    public void SetupSpawners()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            SpawnerManager.PlaceSpawner(UnitFaction.Human);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            SpawnerManager.PlaceSpawner(UnitFaction.Undead);
+        }
     }
 }
