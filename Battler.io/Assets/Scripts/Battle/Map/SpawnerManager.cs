@@ -37,12 +37,12 @@ namespace Battle.Map
                 case UnitFaction.Human:
                     HumanSpawners.Add(objScript);
                     objScript.SetRandomPositionInsideBounds(BoundsHelper.GetHumanBounds());
-                    //objScript.transform.parent = HumanSpawnerContainer.transform;
+                    objScript.transform.parent = HumanSpawnerContainer.transform;
                     break;
                 case UnitFaction.Undead:
                     AiSpawners.Add(objScript);
                     objScript.SetRandomPositionInsideBounds(BoundsHelper.GetUndeadBounds());
-                    //objScript.transform.parent = AISpawnerContainer.transform;
+                    objScript.transform.parent = AISpawnerContainer.transform;
                     break;
             }
 

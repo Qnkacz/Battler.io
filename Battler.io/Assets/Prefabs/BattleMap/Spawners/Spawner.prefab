@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 197666831678718804}
   - component: {fileID: 197666831678718805}
   - component: {fileID: 197666831678718806}
+  - component: {fileID: -503251105961426919}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -238,6 +239,9 @@ MonoBehaviour:
   OffsetUpperLimit: 30
   MaxHealth: 100
   CurrentHealth: 0
+  IsWorking: 0
+  Faction: 0
+  Type: 0
   Unit: {fileID: 1784619921839314846, guid: 6b09236122be711eb98e7678bc58db41, type: 3}
   Healthbar: {fileID: 197666831198300194}
 --- !u!23 &197666831678718806
@@ -281,6 +285,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &-503251105961426919
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197666831678718794}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &197666831759219407
 GameObject:
   m_ObjectHideFlags: 0

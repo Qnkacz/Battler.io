@@ -5924,6 +5924,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   ObstacleSpawnBoundsMargin: 20
+  SpawnerBoundsMargins: 20
   PlayerUnitPlacementBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
