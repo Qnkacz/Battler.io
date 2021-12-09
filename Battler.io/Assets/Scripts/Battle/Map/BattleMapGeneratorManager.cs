@@ -1,6 +1,7 @@
 using System;
 using Battle.Map;
 using Battle.Unit;
+using DefaultNamespace;
 using Extensions;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
     public NavigationManager NavigationManager;
 
     [Space(10)] public SpawnerManager SpawnerManager;
+    [Space(10)] public PlacementController PlacementController;
 
     private void Awake()
     {
@@ -40,12 +42,13 @@ public class BattleMapGeneratorManager : MonoBehaviour
         BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
         SetupSpawners();
+        BattleMap.ResizeBoundsAfterGeneration();
         NavigationManager.BakeAll();
     }
 
-    public void SetOptionsFromUI( MapBiome _Biome)
+    public void SetOptionsFromUI( MapBiome biome)
     {
-        Biome = _Biome;
+        Biome = biome;
     }
 
     public void SetupSpawners()

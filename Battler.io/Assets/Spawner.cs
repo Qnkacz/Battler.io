@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.Map.Helper;
 using Battle.Unit;
 using Extensions;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class Spawner : MonoBehaviour
     
     public UnitFaction Faction;
     public UnitType Type;
-
+    public bool IsDragged;
     public List<IUnit> Units;
 
     public GameObject Unit;
@@ -53,8 +54,24 @@ public class Spawner : MonoBehaviour
         // ------------------------------------------
         Healthbar.SetHealth(CurrentHealth);
         // ------------------------------------------
+        
+        //If is dragged make sure that the object is in the right bounds
+        StayInBounds(Faction);
+    }
 
+    private void StayInBounds(UnitFaction faction)
+    {
+        var bounds = faction switch
+        {
+            UnitFaction.Human => BoundsHelper.GetHumanBounds(),
+            UnitFaction.Undead => BoundsHelper.GetUndeadBounds(),
+            _ => throw new Exception("Bad faction")
+        };
 
+        if (!bounds.Contains(transform.position) && IsDragged)
+        {
+            transform.position = bounds.ClosestPoint(transform.position);
+        }
     }
 
     private void Spawn()

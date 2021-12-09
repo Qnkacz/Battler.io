@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 102776001}
   - component: {fileID: 102776002}
   - component: {fileID: 102776003}
+  - component: {fileID: 102776004}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -552,6 +553,7 @@ MonoBehaviour:
   ObstacleGeneratorManager: {fileID: 102776000}
   NavigationManager: {fileID: 102776001}
   SpawnerManager: {fileID: 102776003}
+  PlacementController: {fileID: 102776004}
 --- !u!4 &102775999
 Transform:
   m_ObjectHideFlags: 0
@@ -648,6 +650,19 @@ MonoBehaviour:
   HumanSpawnerContainer: {fileID: 992559406}
   AISpawnerContainer: {fileID: 1594660941}
   SpawnerPrefab: {fileID: 197666831678718805, guid: 94b56d47a0afe9b4093ea58b4762c7ff, type: 3}
+--- !u!114 &102776004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102775997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500c2d0f3f654b09b67aa2c382bcc620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currDraggableObject: {fileID: 0}
 --- !u!1 &120746698
 GameObject:
   m_ObjectHideFlags: 0
@@ -5894,7 +5909,7 @@ GameObject:
   - component: {fileID: 1059452372}
   m_Layer: 0
   m_Name: BattleMap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

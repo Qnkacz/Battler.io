@@ -69,15 +69,11 @@ public class BattleMap : MonoBehaviour
         AIUnitPlacementBounds = aiBounds;
     }
 
-    public Vector3 GetRandomPositionInsideObstacleBound(Bounds inputBound)
+    public void ResizeBoundsAfterGeneration()
     {
-        return new Vector3(
-            Random.Range(inputBound.min.x,inputBound.max.x),
-            Transform.position.y,
-            Random.Range(inputBound.min.z,inputBound.max.z)
-        );
+        PlayerUnitPlacementBounds.Expand(new Vector3(-PlayerUnitPlacementBounds.extents.x,0,-PlayerUnitPlacementBounds.extents.z));
+        AIUnitPlacementBounds.Expand(new Vector3(-AIUnitPlacementBounds.extents.x,0,-AIUnitPlacementBounds.extents.z));
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
