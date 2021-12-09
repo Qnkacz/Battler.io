@@ -8,6 +8,6 @@ namespace Battle.Unit
 {
     public enum UnitAttackType
     {
-        Melee,Range,Magic
+        Melee,Range,Flying
     }
 }

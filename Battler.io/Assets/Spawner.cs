@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     public bool IsWorking;
     
     public UnitFaction Faction;
-    public UnitType Type;
+    public UnitAttackType Type;
     public bool IsDragged;
     public List<IUnit> Units;
 

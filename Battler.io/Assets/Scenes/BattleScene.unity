@@ -647,6 +647,16 @@ MonoBehaviour:
   AllSpawners: []
   HumanSpawners: []
   AiSpawners: []
+  SpawnerConfig:
+    TotalSpawnerAmount: 0
+    TotalHumanSpawners: 3
+    HumanTroopsSpawnerAmount: 1
+    HumanArcherSpawnerAmount: 1
+    HumanFlyingSpawnerAmount: 1
+    TotalUndeadSpawners: 3
+    UndeadTroopsSpawnerAmount: 1
+    UndeadTArcherSpawnerAmount: 1
+    UndeadFlyingSpawnerAmount: 1
   HumanSpawnerContainer: {fileID: 992559406}
   AISpawnerContainer: {fileID: 1594660941}
   SpawnerPrefab: {fileID: 197666831678718805, guid: 94b56d47a0afe9b4093ea58b4762c7ff, type: 3}

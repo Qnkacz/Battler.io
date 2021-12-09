@@ -41,7 +41,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
         BattleMap.SetSpawnerPlacementBounds();
         BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
-        SetupSpawners();
+        SpawnerManager.SetupSpawners(SpawnerManager.SpawnerConfig);
         BattleMap.ResizeBoundsAfterGeneration();
         NavigationManager.BakeAll();
     }
@@ -49,18 +49,5 @@ public class BattleMapGeneratorManager : MonoBehaviour
     public void SetOptionsFromUI( MapBiome biome)
     {
         Biome = biome;
-    }
-
-    public void SetupSpawners()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            SpawnerManager.PlaceSpawner(UnitFaction.Human);
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            SpawnerManager.PlaceSpawner(UnitFaction.Undead);
-        }
     }
 }
