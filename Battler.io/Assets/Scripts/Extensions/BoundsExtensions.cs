@@ -6,11 +6,12 @@ namespace Extensions
     {
         public static Vector3 GetRandomPositionInsideBound(this Bounds inputBound)
         {
+            var extents = inputBound.extents / 2f;
             return new Vector3(
-                Random.Range(inputBound.min.x,inputBound.max.x),
-                Random.Range(inputBound.min.y,inputBound.max.y),
-                Random.Range(inputBound.min.z,inputBound.max.z)
-            );
+                Random.Range( -extents.x, extents.x ),
+                Random.Range( -extents.y, extents.y ),
+                Random.Range( -extents.z, extents.z )
+            )+inputBound.center;
         }
     }
 }   

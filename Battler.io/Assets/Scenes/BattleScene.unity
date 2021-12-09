@@ -551,7 +551,7 @@ MonoBehaviour:
   RandomizeBiome: 0
   ObstacleGeneratorManager: {fileID: 102776000}
   NavigationManager: {fileID: 102776001}
-  SpawnerManager: {fileID: 0}
+  SpawnerManager: {fileID: 102776003}
 --- !u!4 &102775999
 Transform:
   m_ObjectHideFlags: 0
@@ -642,8 +642,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a9bb70c83346e5bd1e01ae449a8ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllSpawners: []
   HumanSpawners: []
   AiSpawners: []
+  HumanSpawnerContainer: {fileID: 992559406}
+  AISpawnerContainer: {fileID: 1594660941}
+  SpawnerPrefab: {fileID: 197666831678718805, guid: 94b56d47a0afe9b4093ea58b4762c7ff, type: 3}
 --- !u!1 &120746698
 GameObject:
   m_ObjectHideFlags: 0

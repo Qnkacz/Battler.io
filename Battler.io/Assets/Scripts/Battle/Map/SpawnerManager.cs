@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.Map.Helper;
 using Battle.Unit;
 using Extensions;
 using UnityEngine;
@@ -15,9 +16,6 @@ namespace Battle.Map
         [Space(10)] 
         public GameObject HumanSpawnerContainer;
         public GameObject AISpawnerContainer;
-
-        public Bounds HumanBounds = BattleMapGeneratorManager.GameManager.BattleMap.PlayerUnitPlacementBounds;
-        public Bounds UndeadBounds = BattleMapGeneratorManager.GameManager.BattleMap.AIUnitPlacementBounds;
 
 
         public Spawner SpawnerPrefab;
@@ -38,13 +36,13 @@ namespace Battle.Map
                 
                 case UnitFaction.Human:
                     HumanSpawners.Add(objScript);
-                    objScript.SetRandomPositionInsideBounds(HumanBounds);
-                    objScript.transform.parent = HumanSpawnerContainer.transform;
+                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetHumanBounds());
+                    //objScript.transform.parent = HumanSpawnerContainer.transform;
                     break;
                 case UnitFaction.Undead:
                     AiSpawners.Add(objScript);
-                    objScript.SetRandomPositionInsideBounds(UndeadBounds);
-                    objScript.transform.parent = AISpawnerContainer.transform;
+                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetUndeadBounds());
+                    //objScript.transform.parent = AISpawnerContainer.transform;
                     break;
             }
 

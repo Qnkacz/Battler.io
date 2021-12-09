@@ -15,6 +15,7 @@ public class BattleMap : MonoBehaviour
     public Bounds ObstacleSpawnBounds;
 
     public float ObstacleSpawnBoundsMargin;
+    public float SpawnerBoundsMargins;
     public Bounds PlayerUnitPlacementBounds;
     public Bounds AIUnitPlacementBounds;
     public void SetMapScale(Vector3 scale)=>Transform.localScale = scale;
@@ -45,7 +46,11 @@ public class BattleMap : MonoBehaviour
 
     public void SetObstaclesBounds()
     {
+        //because of some unknown reason i had to expand the bounds because it was oryginally too small
         var tmpBounds = gameObject.GetComponent<Renderer>().bounds;
+        tmpBounds.Expand(tmpBounds.size);
+        
+        //shink the bounds by the margin
         tmpBounds.Expand(new Vector3(-ObstacleSpawnBoundsMargin,0,-ObstacleSpawnBoundsMargin));
         ObstacleSpawnBounds = tmpBounds;
     }
@@ -55,6 +60,7 @@ public class BattleMap : MonoBehaviour
         var humanBunds = gameObject.GetComponent<Renderer>().bounds;
         humanBunds.center = new Vector3(humanBunds.extents.x / 2, humanBunds.center.y, humanBunds.center.z);
         humanBunds.extents = new Vector3(humanBunds.extents.x, humanBunds.extents.y, humanBunds.extents.z*2);
+        humanBunds.Expand(new Vector3(-SpawnerBoundsMargins,0,-SpawnerBoundsMargins));
         PlayerUnitPlacementBounds = humanBunds;
 
         var aiBounds = humanBunds;
@@ -79,5 +85,8 @@ public class BattleMap : MonoBehaviour
         
         Gizmos.color = Color.black;
         Gizmos.DrawCube(AIUnitPlacementBounds.center,AIUnitPlacementBounds.extents);
+
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawCube(ObstacleSpawnBounds.center,ObstacleSpawnBounds.extents);
     }
 }
