@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Battle.Unit;
+using DefaultNamespace;
 using UnityEngine;
 
 public class UnitGenerator : MonoBehaviour
@@ -9,31 +11,38 @@ public class UnitGenerator : MonoBehaviour
     public int HumanUnitCap;
     public int AIUnitCap;
 
-    // Human-type unit caps
-    public int HuTrooperCap;
-    public int HuArcherCap;
-    public int HuFlyingCap;
-
-    // AI-type unit caps
-    public int AITrooperCap;
-    public int AIArcherCap;
-    public int AIFlyingCap;
+    //List of army infos
+    public List<ArmyInfo> ArmyList;
 
     public void SetOptionsFromUI(int HTCap, int ATCap,
         int [] HumanUnitTotals, int [] AIUnitTotals)
     {
         // Unit totals for different races
         HumanUnitCap = HTCap;
-        AIUnitCap = ATCap; 
-
+        AIUnitCap = ATCap;
+        
         // Unit totals per race
         //      HUMANS
-        HuTrooperCap = HumanUnitTotals[0];
-        HuArcherCap = HumanUnitTotals[1];
-        HuFlyingCap = HumanUnitTotals[2];
+         var humanArmy = new ArmyInfo()
+        {
+            Faction = UnitFaction.Human,
+            TotalAmount = HTCap,
+            TroopAmount = HumanUnitTotals[0],
+            ArcherAmount = HumanUnitTotals[1],
+            FlyingAmount = HumanUnitTotals[2]
+        };
         //      AI
-        AITrooperCap = AIUnitTotals[0];
-        AIArcherCap = AIUnitTotals[1];
-        AIFlyingCap = AIUnitTotals[2];
+        var undeadArmy = new ArmyInfo()
+        {
+            Faction = UnitFaction.Undead,
+            TotalAmount = ATCap,
+            TroopAmount = AIUnitTotals[0],
+            ArcherAmount = AIUnitTotals[1],
+            FlyingAmount = AIUnitTotals[2]
+        };
+        
+        //put Infos to the list
+        ArmyList.Add(humanArmy);
+        ArmyList.Add(undeadArmy);
     }
 }

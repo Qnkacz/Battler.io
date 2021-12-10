@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Battle.Map.Helper
+namespace Helper
 {
     public static class BoundsHelper
     {

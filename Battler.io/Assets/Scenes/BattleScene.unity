@@ -554,6 +554,7 @@ MonoBehaviour:
   NavigationManager: {fileID: 102776001}
   SpawnerManager: {fileID: 102776003}
   PlacementController: {fileID: 102776004}
+  UnitGenerator: {fileID: 102776002}
 --- !u!4 &102775999
 Transform:
   m_ObjectHideFlags: 0
@@ -646,9 +647,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllSpawners: []
   HumanSpawners: []
-  AiSpawners: []
+  UndeadSpawners: []
   SpawnerConfig:
-    TotalSpawnerAmount: 0
     TotalHumanSpawners: 3
     HumanTroopsSpawnerAmount: 1
     HumanArcherSpawnerAmount: 1

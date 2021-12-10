@@ -20,6 +20,8 @@ public class BattleMapGeneratorManager : MonoBehaviour
 
     [Space(10)] public SpawnerManager SpawnerManager;
     [Space(10)] public PlacementController PlacementController;
+    [Space(10)] public UnitGenerator UnitGenerator;
+
 
     private void Awake()
     {
