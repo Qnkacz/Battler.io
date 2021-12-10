@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Unit;
 using Extensions;
 using Helper;
@@ -106,6 +107,48 @@ namespace Battle.Map
                     spawner.Type = UnitAttackType.Flying;
                 }
             }
+            DistributeUnitsInFaction(faction);
+        }
+
+        private void DistributeUnitsInFaction(UnitFaction faction)
+        {
+            //get the factions spawner list
+            var spawnerList = faction switch
+            {
+                UnitFaction.Human => HumanSpawners,
+                UnitFaction.Undead => UndeadSpawners,
+                _ => throw new Exception("Wrong Faction")
+            };
+
+            //get the spawners with the good type
+            var troopSpanwers = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Melee).ToList();
+            var archerSoawners = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Range).ToList();
+            var flyingSpanwers = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Flying).ToList();
+            
+            //troops unit cap
+            var troopUnitsCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Melee);
+            //archer unit cap
+            var archerUnitCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Range);
+            //flying unit cap
+            var flyingUnitCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Flying);
+            
+            //Distributing troop units
+            troopSpanwers.ForEach(spawner =>
+            {
+                spawner.UnitCap = troopUnitsCount / troopSpanwers.Count;
+            });
+            
+            //Distributing archer units
+            archerSoawners.ForEach(spawner =>
+            {
+                spawner.UnitCap = archerUnitCount / archerSoawners.Count;
+            });
+            
+            //Distributing Flying units
+            flyingSpanwers.ForEach(spawner =>
+            {
+                spawner.UnitCap = flyingUnitCount / flyingSpanwers.Count;
+            });
         }
     }
 
