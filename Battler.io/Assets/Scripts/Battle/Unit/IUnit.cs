@@ -15,4 +15,6 @@ public interface IUnit
     void MoveTo(Vector3 postiotion);
     void Setup();
     void ChangeFactionTo(UnitFaction faction);
+    void SetOwner(CombatAffiliation owner);
+    void SetController(CombatAffiliation controller);
 }

@@ -14,6 +14,7 @@ namespace Battle.Unit
         [Header("Unit Info")]
         public string Name;
         public CombatAffiliation Owner;
+        public CombatAffiliation Controller;
         public UnitType UnitType;
         public UnitAttackType AttackType;
         public UnitFaction Faction;

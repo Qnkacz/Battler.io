@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
 {
     // On instantiation it should lock to only 1RACE && 1TYPE
     // Recieves 
+    public CombatAffiliation Owner;
+    public CombatAffiliation Controller;
     public int UnitCap;
     public float SpawnCooldown;
     public int OffsetUpperLimit;
@@ -106,5 +108,19 @@ public class Spawner : MonoBehaviour
     public void SetRandomPositionInsideBounds(Bounds bound)
     {
         transform.position = bound.GetRandomPositionInsideBound();
+    }
+
+    //selects the probper unit from list to spawn according to settings
+    //TODO: code written in VSC without unity, needs testing
+    private void SelectProperUnit(){
+        var foundUnit = Units.First(unit => (unit.Faction == this.Faction && unit.AttackType == this.Type))
+        
+        if(foundUnit==null){
+            IsWorking==false;
+            gameObject.name = $"{gameObject.name} (BORKED!)";
+            throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
+        }
+
+        Unit=foundUnit.gameObject;
     }
 }
