@@ -123,4 +123,11 @@ public class Spawner : MonoBehaviour
 
         Unit=foundUnit.gameObject;
     }
+    //sets the chosen units owner
+    private void SetUnitOwner(){
+        Unit.GetComponent<CombatUnit>().Owner == this.Owner;
+    }
+    private void SetUnitController(){
+        Unit.GetComponent<CombatUnit>().Controller == this.Controller;
+    }
 }
