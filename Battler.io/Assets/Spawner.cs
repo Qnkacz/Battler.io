@@ -39,6 +39,9 @@ public class Spawner : MonoBehaviour
 
         // Set healthbar max value to spawners max healthbar
         Healthbar.SetMaxHealth(MaxHealth);
+        
+        //selects proper unit from units list
+        SelectProperUnit();
 
         // Check whether we set any unit to spawn
         if (Unit == null)
@@ -114,7 +117,7 @@ public class Spawner : MonoBehaviour
     //selects the probper unit from list to spawn according to settings
     private void SelectProperUnit()
     {
-        var foundUnit = Units.First(unit => (unit.Faction == this.Faction && unit.AttackType == this.Type));
+        var foundUnit = Units.First(unit => (unit.Faction == Faction && unit.AttackType == Type));
         
         if(foundUnit==null){
             IsWorking=false;

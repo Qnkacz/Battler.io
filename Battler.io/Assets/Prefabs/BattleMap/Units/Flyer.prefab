@@ -130,8 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wing
   Owner: 0
+  Controller: 0
   UnitType: 0
-  AttackType: 0
+  AttackType: 2
   Faction: 0
   MovementType: 0
   Portrait: {fileID: 0}

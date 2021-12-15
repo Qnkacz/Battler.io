@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91650230bbf8b38478524b4322eca20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Owner: 0
+  Controller: 0
   UnitCap: 50
   SpawnCooldown: 2
   OffsetUpperLimit: 30
@@ -243,6 +245,14 @@ MonoBehaviour:
   IsWorking: 0
   Faction: 0
   Type: 0
+  IsDragged: 0
+  Units:
+  - {fileID: 1784619921839314851, guid: 6b09236122be711eb98e7678bc58db41, type: 3}
+  - {fileID: 8075001415184609439, guid: 4d0512c3d9785be87ab80ffc5f52fc8b, type: 3}
+  - {fileID: 292792791136467148, guid: d3c79df20b5a09d8ea1d8720473f9e10, type: 3}
+  - {fileID: 6791812743226128656, guid: 13d473143293fe34eb1760c102385c66, type: 3}
+  - {fileID: 5442392793673677636, guid: 89454fd1b80408d4a9b8fdce17b32d68, type: 3}
+  - {fileID: 686554296017995931, guid: e4247ba2ba3c4e44991ef1eb95a6bd5f, type: 3}
   Unit: {fileID: 1784619921839314846, guid: 6b09236122be711eb98e7678bc58db41, type: 3}
   Healthbar: {fileID: 197666831198300194}
 --- !u!23 &197666831678718806
