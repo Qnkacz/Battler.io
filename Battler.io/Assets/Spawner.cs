@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Unit;
 using Extensions;
 using Helper;
@@ -111,13 +112,13 @@ public class Spawner : MonoBehaviour
     }
 
     //selects the probper unit from list to spawn according to settings
-    //TODO: code written in VSC without unity, needs testing
-    private void SelectProperUnit(){
-        var foundUnit = Units.First(unit => (unit.Faction == this.Faction && unit.AttackType == this.Type))
+    private void SelectProperUnit()
+    {
+        var foundUnit = Units.First(unit => (unit.Faction == this.Faction && unit.AttackType == this.Type));
         
         if(foundUnit==null){
-            IsWorking==false;
-            gameObject.name = $"{gameObject.name} (BORKED!)";
+            IsWorking=false;
+            gameObject.name += "BORKED!";
             throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
         }
 
@@ -125,9 +126,9 @@ public class Spawner : MonoBehaviour
     }
     //sets the chosen units owner
     private void SetUnitOwner(){
-        Unit.GetComponent<CombatUnit>().Owner == this.Owner;
+        Unit.GetComponent<CombatUnit>().Owner = this.Owner;
     }
     private void SetUnitController(){
-        Unit.GetComponent<CombatUnit>().Controller == this.Controller;
+        Unit.GetComponent<CombatUnit>().Controller = this.Controller;
     }
 }

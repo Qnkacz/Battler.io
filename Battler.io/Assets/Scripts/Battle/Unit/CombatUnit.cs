@@ -107,5 +107,15 @@ namespace Battle.Unit
         {
             throw new NotImplementedException();
         }
+
+        public void SetOwner(CombatAffiliation owner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetController(CombatAffiliation controller)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
