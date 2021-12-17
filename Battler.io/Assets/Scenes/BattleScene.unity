@@ -3318,7 +3318,9 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 778956721}
+  - {fileID: 1014267182}
   m_Father: {fileID: 1045910584}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3969,14 +3971,18 @@ MonoBehaviour:
     Biome: 0
     AmountOfObstacles: 0
     MaxUnitsOnScreen: 0
-    TotalHumanUnits: 0
+    TotalPlayerUnits: 0
     TotalAIUnits: 0
-    TotalHumanTroops: 0
-    TotalHumanArchers: 0
-    TotalHumanFlying: 0
+    TotalPlayerTroops: 0
+    TotalPlayerArchers: 0
+    TotalPlayerFlying: 0
     TotalAITroops: 0
     TotalAIArchers: 0
     TotalAIFlying: 0
+    PlayerFaction: 0
+    AIFaction: 0
+    PlayerSide: 0
+    AISide: 0
 --- !u!1 &484567800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5761,12 +5767,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778956720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1045910584}
-  m_RootOrder: 1
+  m_Father: {fileID: 445791956}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -8073,19 +8079,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014267181}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1360116302}
   - {fileID: 1097676494}
   - {fileID: 832373184}
-  m_Father: {fileID: 1045910584}
-  m_RootOrder: 2
+  m_Father: {fileID: 445791956}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -82.025, y: -0.000003045}
+  m_AnchoredPosition: {x: -82.025, y: -0}
   m_SizeDelta: {x: 164.05, y: 20.275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014267183
@@ -8144,7 +8150,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1045910585}
+        m_TargetAssemblyTypeName: UI.UIFactionPicker, Assembly-CSharp
+        m_MethodName: PickFaction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1014267184
 MonoBehaviour:
@@ -8417,6 +8435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045910584}
+  - component: {fileID: 1045910585}
   m_Layer: 5
   m_Name: Faction select
   m_TagString: Untagged
@@ -8436,8 +8455,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 445791956}
-  - {fileID: 778956721}
-  - {fileID: 1014267182}
   m_Father: {fileID: 983530812}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8446,6 +8463,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 35.138}
   m_SizeDelta: {x: 0, y: 20.275}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1045910585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045910583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df11f765d0cd47378322bca5dba448f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dropdown: {fileID: 1014267183}
+  Faction: 0
 --- !u!1 &1055988235
 GameObject:
   m_ObjectHideFlags: 0
@@ -9097,6 +9128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1098255593}
+  - component: {fileID: 1098255594}
   m_Layer: 5
   m_Name: Faction select
   m_TagString: Untagged
@@ -9126,6 +9158,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0044174194, y: 35.138}
   m_SizeDelta: {x: 0, y: 20.275}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1098255594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098255592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df11f765d0cd47378322bca5dba448f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dropdown: {fileID: 1277984768}
+  Faction: 0
 --- !u!1 &1101678331
 GameObject:
   m_ObjectHideFlags: 0
@@ -10180,7 +10226,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1635568868}
+        m_TargetAssemblyTypeName: UI.UISidePicker, Assembly-CSharp
+        m_MethodName: PickFaction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1221883114
 MonoBehaviour:
@@ -10819,7 +10877,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1098255594}
+        m_TargetAssemblyTypeName: UI.UIFactionPicker, Assembly-CSharp
+        m_MethodName: PickFaction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1277984769
 MonoBehaviour:
@@ -13136,7 +13206,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1948625942}
+        m_TargetAssemblyTypeName: UI.UISidePicker, Assembly-CSharp
+        m_MethodName: PickFaction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1593335681
 MonoBehaviour:
@@ -13707,6 +13789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635568867}
+  - component: {fileID: 1635568868}
   m_Layer: 5
   m_Name: MapSide
   m_TagString: Untagged
@@ -13734,6 +13817,20 @@ RectTransform:
   m_AnchoredPosition: {x: -0.047785, y: 55.752}
   m_SizeDelta: {x: 228, y: 20.9534}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1635568868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635568866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8df713e5214a9fa2d1fe6f02c71ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dropdown: {fileID: 1221883113}
+  Side: 0
 --- !u!1 &1644446356
 GameObject:
   m_ObjectHideFlags: 0
@@ -15384,6 +15481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1948625941}
+  - component: {fileID: 1948625942}
   m_Layer: 5
   m_Name: MapSide
   m_TagString: Untagged
@@ -15411,6 +15509,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.049816, y: 55.751793}
   m_SizeDelta: {x: 228, y: 20.9534}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1948625942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948625940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8df713e5214a9fa2d1fe6f02c71ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dropdown: {fileID: 1593335680}
+  Side: 0
 --- !u!1 &1954297375
 GameObject:
   m_ObjectHideFlags: 0

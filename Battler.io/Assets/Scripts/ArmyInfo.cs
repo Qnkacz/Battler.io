@@ -11,5 +11,6 @@ namespace DefaultNamespace
         public int ArcherAmount;
         public int FlyingAmount;
         public UnitFaction Faction;
+        public CombatAffiliation Affiliation;
     }
 }

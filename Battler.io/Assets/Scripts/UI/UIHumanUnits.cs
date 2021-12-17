@@ -1,3 +1,5 @@
+using System;
+using Battle.Unit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +12,6 @@ namespace UI
         public TextMeshProUGUI TroopPercentageText;
         public TextMeshProUGUI ArcherPercentageText;
         public TextMeshProUGUI FlyingPercentageText;
-
         public Slider TroopSlider;
         public Slider ArcherSlider;
         public Slider FlyingSlider;
