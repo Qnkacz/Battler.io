@@ -69,8 +69,27 @@ public class Options_generation : MonoBehaviour
         SetExportAITroops();
         SetExportAIArchers();
         SetExportAIFlying();
+        SetExportSides();
+        SetExportFactions();
     }
-    
+
+    private void SetExportSides()
+    {
+        var playerSide = UnitsOptions.HumanUnits.SidePicker.Side;
+        var aiSide = UnitsOptions.AIUnits.SidePicker.Side;
+        
+        exportOptions.SetPlayerSide(playerSide);
+        exportOptions.SetAISide(aiSide);
+    }
+
+    private void SetExportFactions()
+    {
+        var playerFaction = UnitsOptions.HumanUnits.FactionPicker.Faction;
+        var aiFaction = UnitsOptions.AIUnits.FactionPicker.Faction;
+        
+        exportOptions.SetPlayerFaction(playerFaction);
+        exportOptions.SetAiFaction(aiFaction);
+    }
 
     private void SetExportBiome()
     {

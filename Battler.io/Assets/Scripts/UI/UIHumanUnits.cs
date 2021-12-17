@@ -15,6 +15,8 @@ namespace UI
         public Slider TroopSlider;
         public Slider ArcherSlider;
         public Slider FlyingSlider;
+        public UIFactionPicker FactionPicker;
+        public UISidePicker SidePicker;
         
         public float UnitPercentage;
         public void SetUnitPercentage(float value)

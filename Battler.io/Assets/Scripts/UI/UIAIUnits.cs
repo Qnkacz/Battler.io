@@ -10,6 +10,8 @@ namespace UI
         public TextMeshProUGUI TroopPercentageText;
         public TextMeshProUGUI ArcherPercentageText;
         public TextMeshProUGUI FlyingPercentageText;
+        public UIFactionPicker FactionPicker;
+        public UISidePicker SidePicker;
 
         public Slider TroopSlider;
         public Slider ArcherSlider;

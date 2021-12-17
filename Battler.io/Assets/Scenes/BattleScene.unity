@@ -1013,6 +1013,8 @@ MonoBehaviour:
   TroopPercentageText: {fileID: 944390059}
   ArcherPercentageText: {fileID: 810492827}
   FlyingPercentageText: {fileID: 1658135276}
+  FactionPicker: {fileID: 1098255594}
+  SidePicker: {fileID: 1635568868}
   TroopSlider: {fileID: 1514393833}
   ArcherSlider: {fileID: 842118541}
   FlyingSlider: {fileID: 497266822}
@@ -7847,6 +7849,8 @@ MonoBehaviour:
   TroopSlider: {fileID: 1320860517}
   ArcherSlider: {fileID: 833464245}
   FlyingSlider: {fileID: 1653108786}
+  FactionPicker: {fileID: 1045910585}
+  SidePicker: {fileID: 1948625942}
   UnitPercentage: 0
 --- !u!1 &991442368
 GameObject:
