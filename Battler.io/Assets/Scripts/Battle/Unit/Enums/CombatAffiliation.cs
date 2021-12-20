@@ -3,6 +3,7 @@
     public enum CombatAffiliation
     {
         Player,
-        AI
+        AI,
+        Neutral
     }
 }

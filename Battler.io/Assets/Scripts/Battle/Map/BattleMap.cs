@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Battle.Map;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class BattleMap : MonoBehaviour
     public Material[] Materials;
     public MeshRenderer MeshRenderer;
     [Header("Bounds")] 
+    public List<MapBounds> Bounds;
     public Bounds ObstacleSpawnBounds;
 
     public float ObstacleSpawnBoundsMargin;
