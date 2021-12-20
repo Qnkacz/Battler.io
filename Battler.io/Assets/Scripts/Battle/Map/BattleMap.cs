@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Map;
+using Battle.Unit;
+using Helper;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,13 +15,10 @@ public class BattleMap : MonoBehaviour
     public Material[] Materials;
     public MeshRenderer MeshRenderer;
     [Header("Bounds")] 
-    public List<MapBounds> Bounds;
-    public Bounds ObstacleSpawnBounds;
+    public List<MapBounds> BoundsList;
 
     public float ObstacleSpawnBoundsMargin;
     public float SpawnerBoundsMargins;
-    public Bounds PlayerUnitPlacementBounds;
-    public Bounds AIUnitPlacementBounds;
     public void SetMapScale(Vector3 scale)=>Transform.localScale = scale;
     public Vector3 GetMapScale =>Transform.localScale;
     public void SetMaterialByBiome(MapBiome biome)
@@ -41,7 +40,7 @@ public class BattleMap : MonoBehaviour
         SetRenderMaterial(CurrentMaterial);
     }
 
-    public void SetRenderMaterial(Material inputMaterial)
+    private void SetRenderMaterial(Material inputMaterial)
     {
         MeshRenderer.material = inputMaterial;
     }
@@ -54,7 +53,16 @@ public class BattleMap : MonoBehaviour
         
         //shink the bounds by the margin
         tmpBounds.Expand(new Vector3(-ObstacleSpawnBoundsMargin,0,-ObstacleSpawnBoundsMargin));
-        ObstacleSpawnBounds = tmpBounds;
+
+        var bounds = new MapBounds
+        {
+            Bounds = tmpBounds,
+            Name = "ObstacleBounds",
+            Side = MapSide.Whole,
+            Owner = CombatAffiliation.Neutral,
+            Controller = CombatAffiliation.Neutral
+        };
+        BoundsList.Add(bounds);
     }
 
     public void SetSpawnerPlacementBounds()
@@ -63,26 +71,43 @@ public class BattleMap : MonoBehaviour
         humanBunds.center = new Vector3(humanBunds.extents.x / 2, humanBunds.center.y, humanBunds.center.z);
         humanBunds.extents = new Vector3(humanBunds.extents.x, humanBunds.extents.y, humanBunds.extents.z*2);
         humanBunds.Expand(new Vector3(-SpawnerBoundsMargins,0,-SpawnerBoundsMargins));
-        PlayerUnitPlacementBounds = humanBunds;
-
-        var aiBounds = humanBunds;
-
-        aiBounds.center = new Vector3(humanBunds.center.x * -1, humanBunds.center.y, humanBunds.center.z);
-        AIUnitPlacementBounds = aiBounds;
+        var playerBounds = new MapBounds
+        {
+            Name = "PlayerBounds",
+            Bounds = humanBunds,
+            Side = OptionsHelper.GetExportOptions().PlayerSide,
+            Owner = CombatAffiliation.Player,
+            Controller = CombatAffiliation.Player
+        };
+        BoundsList.Add(playerBounds);
+        
+        var aiTmpBounds = humanBunds;
+        aiTmpBounds.center = new Vector3(humanBunds.center.x * -1, humanBunds.center.y, humanBunds.center.z);
+        var aiBounds = new MapBounds
+        {
+            Name = "AIBounds",
+            Bounds = aiTmpBounds,
+            Side = OptionsHelper.GetExportOptions().AISide,
+            Owner = CombatAffiliation.AI,
+            Controller = CombatAffiliation.AI
+        };
+        BoundsList.Add(aiBounds);
     }
 
     public void ResizeBoundsAfterGeneration()
     {
-        PlayerUnitPlacementBounds.Expand(new Vector3(-PlayerUnitPlacementBounds.extents.x,0,-PlayerUnitPlacementBounds.extents.z));
-        AIUnitPlacementBounds.Expand(new Vector3(-AIUnitPlacementBounds.extents.x,0,-AIUnitPlacementBounds.extents.z));
+        var playerBounds = BoundsList.First(bound => bound.Owner==CombatAffiliation.Player);
+        var aiBounds = BoundsList.First(bound => bound.Owner==CombatAffiliation.AI);
+        playerBounds.Bounds.Expand(new Vector3(-playerBounds.Bounds.extents.x,0,-playerBounds.Bounds.extents.z));
+        aiBounds.Bounds.Expand(new Vector3(-aiBounds.Bounds.extents.x,0,-aiBounds.Bounds.extents.z));
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(PlayerUnitPlacementBounds.center,PlayerUnitPlacementBounds.extents);
+        Gizmos.DrawCube(BoundsHelper.GetHumanBounds().center,BoundsHelper.GetHumanBounds().extents);
         
         Gizmos.color = Color.black;
-        Gizmos.DrawCube(AIUnitPlacementBounds.center,AIUnitPlacementBounds.extents);
+        Gizmos.DrawCube(BoundsHelper.GetUndeadBounds().center,BoundsHelper.GetUndeadBounds().extents);
 
         //Gizmos.color = Color.red;
         //Gizmos.DrawCube(ObstacleSpawnBounds.center,ObstacleSpawnBounds.extents);

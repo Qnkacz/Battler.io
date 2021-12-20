@@ -1,3 +1,5 @@
+using System.Linq;
+using Battle.Unit;
 using UnityEngine;
 
 namespace Helper
@@ -13,7 +15,10 @@ namespace Helper
         /// <returns></returns>
         public static Bounds GetHumanBounds()
         {
-            return BattleMapGeneratorManager.GameManager.BattleMap.PlayerUnitPlacementBounds;
+            var bounds =
+                BattleMapGeneratorManager.GameManager.BattleMap.BoundsList.First(bound =>
+                    bound.Owner == CombatAffiliation.Player);
+            return bounds.Bounds;
         }
         /// <summary>
         /// Gets undead placement bounds
@@ -21,7 +26,10 @@ namespace Helper
         /// <returns></returns>
         public static Bounds GetUndeadBounds()
         {
-            return BattleMapGeneratorManager.GameManager.BattleMap.AIUnitPlacementBounds;
+            var bounds =
+                BattleMapGeneratorManager.GameManager.BattleMap.BoundsList.First(bound =>
+                    bound.Owner == CombatAffiliation.AI);
+            return bounds.Bounds;
         }
 
         /// <summary>
@@ -30,7 +38,10 @@ namespace Helper
         /// <returns></returns>
         public static Bounds GetObstacleBounds()
         {
-            return BattleMapGeneratorManager.GameManager.BattleMap.ObstacleSpawnBounds;
+            var bounds =
+                BattleMapGeneratorManager.GameManager.BattleMap.BoundsList.First(bound =>
+                    bound.Owner == CombatAffiliation.Neutral);
+            return bounds.Bounds;
         }
     }
 }

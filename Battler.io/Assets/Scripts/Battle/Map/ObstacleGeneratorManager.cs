@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Battle.Map.SmallObstackes;
 using Extensions;
+using Helper;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -80,7 +81,7 @@ public class ObstacleGeneratorManager : MonoBehaviour
         ObstaclesBaseAmount = obstacles_from_UI;
     }
 
-private Vector3 GetRandomObstaclePosition() => BattleMapGeneratorManager.BattleMap.ObstacleSpawnBounds.GetRandomPositionInsideBound();
+private Vector3 GetRandomObstaclePosition() => BoundsHelper.GetObstacleBounds().GetRandomPositionInsideBound();
 
 }
 

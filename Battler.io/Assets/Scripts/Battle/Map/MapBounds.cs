@@ -1,12 +1,15 @@
+using System;
 using Battle.Unit;
 using UnityEngine;
 
 namespace Battle.Map
 {
-    public class MapBounds : MonoBehaviour
+    [Serializable]
+    public class MapBounds
     {
-        public Bounds bounds;
-        public MapSide side;
+        public string Name;
+        public Bounds Bounds;
+        public MapSide Side;
         public CombatAffiliation Owner;
         public CombatAffiliation Controller;
     }
