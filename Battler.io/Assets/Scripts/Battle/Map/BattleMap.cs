@@ -67,31 +67,55 @@ public class BattleMap : MonoBehaviour
 
     public void SetSpawnerPlacementBounds()
     {
-        var humanBunds = gameObject.GetComponent<Renderer>().bounds;
-        humanBunds.center = new Vector3(humanBunds.extents.x / 2, humanBunds.center.y, humanBunds.center.z);
-        humanBunds.extents = new Vector3(humanBunds.extents.x, humanBunds.extents.y, humanBunds.extents.z*2);
-        humanBunds.Expand(new Vector3(-SpawnerBoundsMargins,0,-SpawnerBoundsMargins));
+        SetPlayerSpawnerBounds();
+        SetAISpawnerBounds();
+    }
+
+    private void SetPlayerSpawnerBounds()
+    {
+        var bounds = gameObject.GetComponent<Renderer>().bounds;
+        bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y, bounds.extents.z*2);
+        bounds.Expand(new Vector3(-SpawnerBoundsMargins,0,-SpawnerBoundsMargins));
         var playerBounds = new MapBounds
         {
             Name = "PlayerBounds",
-            Bounds = humanBunds,
+            Bounds = bounds,
             Side = OptionsHelper.GetExportOptions().PlayerSide,
             Owner = CombatAffiliation.Player,
             Controller = CombatAffiliation.Player
         };
+        playerBounds.Bounds.center = GetSideCenter(playerBounds.Side);
         BoundsList.Add(playerBounds);
-        
-        var aiTmpBounds = humanBunds;
-        aiTmpBounds.center = new Vector3(humanBunds.center.x * -1, humanBunds.center.y, humanBunds.center.z);
-        var aiBounds = new MapBounds
+    }
+
+    private void SetAISpawnerBounds()
+    {
+        var bounds = gameObject.GetComponent<Renderer>().bounds;
+        bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y, bounds.extents.z*2);
+        bounds.Expand(new Vector3(-SpawnerBoundsMargins,0,-SpawnerBoundsMargins));
+        var playerBounds = new MapBounds
         {
             Name = "AIBounds",
-            Bounds = aiTmpBounds,
+            Bounds = bounds,
             Side = OptionsHelper.GetExportOptions().AISide,
             Owner = CombatAffiliation.AI,
             Controller = CombatAffiliation.AI
         };
-        BoundsList.Add(aiBounds);
+        playerBounds.Bounds.center = GetSideCenter(playerBounds.Side);
+        BoundsList.Add(playerBounds);
+    }
+
+    private Vector3 GetSideCenter(MapSide side)
+    {
+        var bounds = gameObject.GetComponent<Renderer>().bounds;
+        var output = side switch
+        {
+            MapSide.Left => new Vector3(-bounds.extents.x / 2, bounds.center.y, bounds.center.z),
+            MapSide.Right => new Vector3(bounds.extents.x / 2, bounds.center.y, bounds.center.z),
+            MapSide.Whole => bounds.center,
+            _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
+        };
+        return output;
     }
 
     public void ResizeBoundsAfterGeneration()
