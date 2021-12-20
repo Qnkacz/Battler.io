@@ -12,8 +12,8 @@ namespace Helper
         /// <summary>
         /// Gets Human placement bounds
         /// </summary>
-        /// <returns></returns>
-        public static Bounds GetHumanBounds()
+        /// <returns>Unity.Bounds</returns>
+        public static Bounds GetPlayerBounds()
         {
             var bounds =
                 BattleMapGeneratorManager.GameManager.BattleMap.BoundsList.First(bound =>
@@ -23,8 +23,8 @@ namespace Helper
         /// <summary>
         /// Gets undead placement bounds
         /// </summary>
-        /// <returns></returns>
-        public static Bounds GetUndeadBounds()
+        /// <returns>Unity.Bounds</returns>
+        public static Bounds GetAIBounds()
         {
             var bounds =
                 BattleMapGeneratorManager.GameManager.BattleMap.BoundsList.First(bound =>
@@ -35,7 +35,7 @@ namespace Helper
         /// <summary>
         /// Gets obstacle bounds
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Unity.Bounds</returns>
         public static Bounds GetObstacleBounds()
         {
             var bounds =

@@ -69,8 +69,8 @@ public class Spawner : MonoBehaviour
     {
         var bounds = faction switch
         {
-            UnitFaction.Human => BoundsHelper.GetHumanBounds(),
-            UnitFaction.Undead => BoundsHelper.GetUndeadBounds(),
+            UnitFaction.Human => BoundsHelper.GetPlayerBounds(),
+            UnitFaction.Undead => BoundsHelper.GetAIBounds(),
             _ => throw new Exception("Bad faction")
         };
 

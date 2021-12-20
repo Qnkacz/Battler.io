@@ -11,8 +11,8 @@ namespace Battle.Map
     public class SpawnerManager : MonoBehaviour
     {
         public List<Spawner> AllSpawners;
-        public List<Spawner> HumanSpawners;
-        public List<Spawner> UndeadSpawners;
+        public List<Spawner> PlayerSpawners;
+        public List<Spawner> AISpawners;
         [Space(10)] 
         public SpawnerConfig SpawnerConfig;
         [Space(10)] 
@@ -21,24 +21,26 @@ namespace Battle.Map
         [Space(10)]
         public Spawner SpawnerPrefab;
 
-        private void PlaceSpawner(UnitFaction faction)
+        private void PlaceSpawner(CombatAffiliation owner)
         {
             var obj = Instantiate(SpawnerPrefab.gameObject);
             var objScript = obj.GetComponent<Spawner>();
             
             //Set Spawner Faction
-            objScript.Faction = faction;
+            objScript.Faction = OptionsHelper.GetFactionOfPlayer(owner);
+            objScript.Owner = owner;
+            objScript.Controller = owner;
             //Add spawner to proper list + put it in proper containers + set spawner position
-            switch (faction)
+            switch (objScript.Owner)
             {
-                case UnitFaction.Human:
-                    HumanSpawners.Add(objScript);
-                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetHumanBounds());
+                case CombatAffiliation.Player:
+                    PlayerSpawners.Add(objScript);
+                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetPlayerBounds());
                     objScript.transform.parent = HumanSpawnerContainer.transform;
                     break;
-                case UnitFaction.Undead:
-                    UndeadSpawners.Add(objScript);
-                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetUndeadBounds());
+                case CombatAffiliation.AI:
+                    AISpawners.Add(objScript);
+                    objScript.SetRandomPositionInsideBounds(BoundsHelper.GetAIBounds());
                     objScript.transform.parent = AISpawnerContainer.transform;
                     break;
             }
@@ -48,47 +50,50 @@ namespace Battle.Map
 
         public void SetupSpawners(SpawnerConfig config)
         {
-            SetupSpawnerByFaction(config,UnitFaction.Human);
-            SetupSpawnerByFaction(config,UnitFaction.Undead);
+            SetupSpawnerByOwner(config,CombatAffiliation.Player);
+            SetupSpawnerByOwner(config,CombatAffiliation.AI);
+        }
+
+        public void SetupSpawner()
+        {
+            SetupSpawnerByOwner(SpawnerConfig,CombatAffiliation.Player);
+            SetupSpawnerByOwner(SpawnerConfig,CombatAffiliation.AI);
         }
 
         /// <summary>
         /// Sets up spawners by config and faction
         /// </summary>
         /// <param name="config"> Spawner config class to get info from</param>
-        /// <param name="faction"> Faction you want to setup</param>
-        private void SetupSpawnerByFaction(SpawnerConfig config, UnitFaction faction)
+        /// <param name="owner"> Owner of the spawners</param>
+        private void SetupSpawnerByOwner(SpawnerConfig config, CombatAffiliation owner)
         {
-            int spawnerAmount = faction switch
+            int spawnerAmount = owner switch
             {
-                UnitFaction.Human => config.TotalHumanSpawners,
-                UnitFaction.Undead => config.TotalUndeadSpawners,
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+                CombatAffiliation.Player => config.TotalPlayerSpawners,
+                CombatAffiliation.AI => config.TotalAISpawners,
+                _ => throw new Exception("Wrong owner")
             };
             
             for (var i = 0; i < spawnerAmount; i++)
             {
-                PlaceSpawner(faction);
+                PlaceSpawner(owner);
             }
 
-            var tmpTroops = faction switch
+            var tmpTroops = owner switch
             {
-                UnitFaction.Human => config.HumanTroopsSpawnerAmount,
-                UnitFaction.Undead => config.UndeadTroopsSpawnerAmount,
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+                CombatAffiliation.Player => config.PlayerTroopsSpawnerAmount,
+                CombatAffiliation.AI => config.AITroopsSpawnerAmount
             };
             
-            var tmpArchers = faction switch
+            var tmpArchers = owner switch
             {
-                UnitFaction.Human => config.HumanArcherSpawnerAmount,
-                UnitFaction.Undead => config.UndeadTArcherSpawnerAmount,
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+                CombatAffiliation.Player=> config.PlayerArcherSpawnerAmount,
+                CombatAffiliation.AI=> config.AITArcherSpawnerAmount
             };
-            var list = faction switch
+            var list = owner switch
             {  
-                UnitFaction.Human => HumanSpawners,
-                UnitFaction.Undead => UndeadSpawners,
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+                CombatAffiliation.Player => PlayerSpawners,
+                CombatAffiliation.AI=> AISpawners
             };
             foreach (var spawner in list)
             {
@@ -107,16 +112,16 @@ namespace Battle.Map
                     spawner.Type = UnitAttackType.Flying;
                 }
             }
-            DistributeUnitsInFaction(faction);
+            //DistributeUnitsInArmy(owner);
         }
 
-        private void DistributeUnitsInFaction(UnitFaction faction)
+        private void DistributeUnitsInArmy(CombatAffiliation owner)
         {
             //get the factions spawner list
-            var spawnerList = faction switch
+            var spawnerList = owner switch
             {
-                UnitFaction.Human => HumanSpawners,
-                UnitFaction.Undead => UndeadSpawners,
+                CombatAffiliation.Player => PlayerSpawners,
+                CombatAffiliation.AI => AISpawners,
                 _ => throw new Exception("Wrong Faction")
             };
 
@@ -126,11 +131,11 @@ namespace Battle.Map
             var flyingSpanwers = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Flying).ToList();
             
             //troops unit cap
-            var troopUnitsCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Melee);
+            var troopUnitsCount = ArmyHelper.GetUnitMaxAmount(owner, UnitAttackType.Melee);
             //archer unit cap
-            var archerUnitCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Range);
+            var archerUnitCount = ArmyHelper.GetUnitMaxAmount(owner, UnitAttackType.Range);
             //flying unit cap
-            var flyingUnitCount = ArmyHelper.GetUnitMaxAmount(faction, UnitAttackType.Flying);
+            var flyingUnitCount = ArmyHelper.GetUnitMaxAmount(owner, UnitAttackType.Flying);
             
             //Distributing troop units
             troopSpanwers.ForEach(spawner =>
@@ -156,15 +161,15 @@ namespace Battle.Map
     public class SpawnerConfig
     {
         [Header("Human")] 
-        public int TotalHumanSpawners;
-        public int HumanTroopsSpawnerAmount;
-        public int HumanArcherSpawnerAmount;
-        public int HumanFlyingSpawnerAmount;
+        public int TotalPlayerSpawners;
+        public int PlayerTroopsSpawnerAmount;
+        public int PlayerArcherSpawnerAmount;
+        public int PlayerFlyingSpawnerAmount;
 
         [Header("Undead")] 
-        public int TotalUndeadSpawners;
-        public int UndeadTroopsSpawnerAmount;
-        public int UndeadTArcherSpawnerAmount;
-        public int UndeadFlyingSpawnerAmount;
+        public int TotalAISpawners;
+        public int AITroopsSpawnerAmount;
+        public int AITArcherSpawnerAmount;
+        public int AIFlyingSpawnerAmount;
     }
 }

@@ -16,9 +16,9 @@ namespace Helper
         /// <param name="faction"> Chosen faction</param>
         /// <param name="type"> Chosen unit attack type</param>
         /// <returns>int</returns>
-        public static int GetUnitMaxAmount(UnitFaction faction, UnitAttackType type)
+        public static int GetUnitMaxAmount(CombatAffiliation affiliation, UnitAttackType type)
         {
-            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Faction==faction);
+            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==affiliation);
             var value = type switch
             {
                 UnitAttackType.Melee => armyInfo.TroopAmount,
@@ -35,9 +35,9 @@ namespace Helper
         /// </summary>
         /// <param name="faction">Chosen faction</param>
         /// <returns>int</returns>
-        public static int GetFactionMaxUnits(UnitFaction faction)
+        public static int GetOwnerMaxUnits(CombatAffiliation owner)
         {
-            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Faction==faction);
+            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==owner);
             return armyInfo.TotalAmount;
         }
 
@@ -46,9 +46,9 @@ namespace Helper
         /// </summary>
         /// <param name="faction">Chosen faction</param>
         /// <returns>ArmyInfo</returns>
-        public static ArmyInfo GetArmyInfo(UnitFaction faction)
+        public static ArmyInfo GetArmyInfo(CombatAffiliation affiliation)
         {
-            return BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Faction==faction);
+            return BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==affiliation);
         }
     }
 }

@@ -128,10 +128,10 @@ public class BattleMap : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(BoundsHelper.GetHumanBounds().center,BoundsHelper.GetHumanBounds().extents);
+        Gizmos.DrawCube(BoundsHelper.GetPlayerBounds().center,BoundsHelper.GetPlayerBounds().extents);
         
         Gizmos.color = Color.black;
-        Gizmos.DrawCube(BoundsHelper.GetUndeadBounds().center,BoundsHelper.GetUndeadBounds().extents);
+        Gizmos.DrawCube(BoundsHelper.GetAIBounds().center,BoundsHelper.GetAIBounds().extents);
 
         //Gizmos.color = Color.red;
         //Gizmos.DrawCube(ObstacleSpawnBounds.center,ObstacleSpawnBounds.extents);
