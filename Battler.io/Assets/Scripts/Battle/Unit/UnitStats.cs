@@ -12,5 +12,10 @@ namespace Battle.Unit
         public float HP;
         public float DamageResist;
         public float MagicResist;
+
+        public UnitStats ShallowCopy()
+        {
+            return (UnitStats) this.MemberwiseClone();
+        }
     }
 }

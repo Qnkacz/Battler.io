@@ -116,7 +116,7 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: 0cb65d278c8fc24178ca72d939a59c77, type: 2}
   Renderer: {fileID: 292792791136467147}
   IsVisible: 0
-  Stats:
+  BaseStats:
     AttackCooldown: 0.5
     MeleeDamage: 10
     RangedDamage: 0
@@ -124,6 +124,22 @@ MonoBehaviour:
     HP: 100
     DamageResist: 10
     MagicResist: 0
+  CurrentStats:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    DamageResist: 0
+    MagicResist: 0
+  StatFluctuation:
+    AttackSpeed: 0.288
+    MeeleeDamage: 0.162
+    RangedDamage: 0.282
+    HP: 0.371
+    DamageResist: 0.288
+    MagicResist: 0.401
+    Speed: 0.287
 --- !u!195 &292792791136467144
 NavMeshAgent:
   m_ObjectHideFlags: 0

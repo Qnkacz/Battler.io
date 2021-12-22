@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Battle.Unit
 {
@@ -29,7 +30,9 @@ namespace Battle.Unit
         public Material Material;
         public Renderer Renderer;
         public bool IsVisible;
-        public UnitStats Stats;
+        public UnitStats BaseStats;
+        public UnitStats CurrentStats;
+        public UnitStatFluctuation StatFluctuation;
 
         private void Awake()
         {
@@ -90,6 +93,24 @@ namespace Battle.Unit
         public void Setup()
         {
             SetUnitColor();
+            SetupStats();
+        }
+
+        private void SetupStats()
+        {
+            CurrentStats = BaseStats.ShallowCopy();
+            ApplyFluctuation();
+        }
+
+        private void ApplyFluctuation()
+        {
+            CurrentStats.AttackCooldown =+ CurrentStats.AttackCooldown*Random.Range(-StatFluctuation.AttackSpeed, StatFluctuation.AttackSpeed);
+            CurrentStats.MeleeDamage =+ CurrentStats.MeleeDamage*Random.Range(-StatFluctuation.MeeleeDamage, StatFluctuation.MeeleeDamage);
+            CurrentStats.RangedDamage =+ CurrentStats.RangedDamage *Random.Range(-StatFluctuation.RangedDamage, StatFluctuation.RangedDamage);
+            CurrentStats.HP =+ CurrentStats.HP*Random.Range(-StatFluctuation.HP, StatFluctuation.HP);
+            CurrentStats.DamageResist =+ CurrentStats.DamageResist*Random.Range(-StatFluctuation.DamageResist, StatFluctuation.DamageResist);
+            CurrentStats.MagicResist =+CurrentStats.MagicResist* Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
+            CurrentStats.MovementSpeed =+ CurrentStats.MovementSpeed*Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
         }
 
         public void ChangeFactionTo(UnitFaction faction)
