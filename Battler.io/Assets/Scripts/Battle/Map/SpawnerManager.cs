@@ -48,13 +48,16 @@ namespace Battle.Map
             AllSpawners.Add(objScript);
         }
 
-        public void SetupSpawners(SpawnerConfig config)
+        public void SetupSpawnersForPlayers(SpawnerConfig config, params CombatAffiliation[] players)
         {
-            SetupSpawnerByOwner(config,CombatAffiliation.Player);
-            SetupSpawnerByOwner(config,CombatAffiliation.AI);
+            foreach (var combatAffiliation in players)
+            {
+                SetupSpawnerByOwner(config,combatAffiliation);
+                SetupSpawnerByOwner(config,combatAffiliation);
+            }
         }
 
-        public void SetupSpawner()
+        public void SetupSpawners()
         {
             SetupSpawnerByOwner(SpawnerConfig,CombatAffiliation.Player);
             SetupSpawnerByOwner(SpawnerConfig,CombatAffiliation.AI);
@@ -112,23 +115,27 @@ namespace Battle.Map
                     spawner.Type = UnitAttackType.Flying;
                 }
             }
-            //DistributeUnitsInArmy(owner);
+            DistributeUnitsInArmy(owner);
         }
 
         private void DistributeUnitsInArmy(CombatAffiliation owner)
         {
+            //get the owners faction
+
+            var faction = OptionsHelper.GetFactionOfPlayer(owner);
+            
             //get the factions spawner list
             var spawnerList = owner switch
             {
                 CombatAffiliation.Player => PlayerSpawners,
                 CombatAffiliation.AI => AISpawners,
-                _ => throw new Exception("Wrong Faction")
+                _ => throw new Exception("Wrong ownership")
             };
 
             //get the spawners with the good type
-            var troopSpanwers = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Melee).ToList();
-            var archerSoawners = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Range).ToList();
-            var flyingSpanwers = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Flying).ToList();
+            var troopSpawners = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Melee).ToList();
+            var archerSpawners = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Range).ToList();
+            var flyingSpawners = spawnerList.Where(spawner => spawner.Type == UnitAttackType.Flying).ToList();
             
             //troops unit cap
             var troopUnitsCount = ArmyHelper.GetUnitMaxAmount(owner, UnitAttackType.Melee);
@@ -138,21 +145,21 @@ namespace Battle.Map
             var flyingUnitCount = ArmyHelper.GetUnitMaxAmount(owner, UnitAttackType.Flying);
             
             //Distributing troop units
-            troopSpanwers.ForEach(spawner =>
+            troopSpawners.ForEach(spawner =>
             {
-                spawner.UnitCap = troopUnitsCount / troopSpanwers.Count;
+                spawner.UnitCap = troopUnitsCount / troopSpawners.Count;
             });
             
             //Distributing archer units
-            archerSoawners.ForEach(spawner =>
+            archerSpawners.ForEach(spawner =>
             {
-                spawner.UnitCap = archerUnitCount / archerSoawners.Count;
+                spawner.UnitCap = archerUnitCount / archerSpawners.Count;
             });
             
             //Distributing Flying units
-            flyingSpanwers.ForEach(spawner =>
+            flyingSpawners.ForEach(spawner =>
             {
-                spawner.UnitCap = flyingUnitCount / flyingSpanwers.Count;
+                spawner.UnitCap = flyingUnitCount / flyingSpawners.Count;
             });
         }
     }
@@ -160,13 +167,13 @@ namespace Battle.Map
     [Serializable]
     public class SpawnerConfig
     {
-        [Header("Human")] 
+        [Header("Player")] 
         public int TotalPlayerSpawners;
         public int PlayerTroopsSpawnerAmount;
         public int PlayerArcherSpawnerAmount;
         public int PlayerFlyingSpawnerAmount;
 
-        [Header("Undead")] 
+        [Header("AI")] 
         public int TotalAISpawners;
         public int AITroopsSpawnerAmount;
         public int AITArcherSpawnerAmount;

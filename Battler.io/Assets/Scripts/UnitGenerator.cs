@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Battle.Unit;
 using DefaultNamespace;
+using Helper;
 using UnityEngine;
 
 public class UnitGenerator : MonoBehaviour
@@ -23,18 +24,20 @@ public class UnitGenerator : MonoBehaviour
         
         // Unit totals per race
         //      HUMANS
-         var humanArmy = new ArmyInfo()
+         var humanArmy = new ArmyInfo
         {
-            Faction = UnitFaction.Human,
+            Affiliation = CombatAffiliation.Player,
+            Faction = OptionsHelper.GetFactionOfPlayer(CombatAffiliation.Player),
             TotalAmount = HTCap,
             TroopAmount = HumanUnitTotals[0],
             ArcherAmount = HumanUnitTotals[1],
             FlyingAmount = HumanUnitTotals[2]
         };
         //      AI
-        var undeadArmy = new ArmyInfo()
+        var undeadArmy = new ArmyInfo
         {
-            Faction = UnitFaction.Undead,
+            Affiliation = CombatAffiliation.AI,
+            Faction = OptionsHelper.GetFactionOfPlayer(CombatAffiliation.AI),
             TotalAmount = ATCap,
             TroopAmount = AIUnitTotals[0],
             ArcherAmount = AIUnitTotals[1],

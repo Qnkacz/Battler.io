@@ -854,17 +854,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllSpawners: []
-  HumanSpawners: []
-  UndeadSpawners: []
+  PlayerSpawners: []
+  AISpawners: []
   SpawnerConfig:
-    TotalHumanSpawners: 3
-    HumanTroopsSpawnerAmount: 1
-    HumanArcherSpawnerAmount: 1
-    HumanFlyingSpawnerAmount: 1
-    TotalUndeadSpawners: 3
-    UndeadTroopsSpawnerAmount: 1
-    UndeadTArcherSpawnerAmount: 1
-    UndeadFlyingSpawnerAmount: 1
+    TotalPlayerSpawners: 3
+    PlayerTroopsSpawnerAmount: 1
+    PlayerArcherSpawnerAmount: 1
+    PlayerFlyingSpawnerAmount: 1
+    TotalAISpawners: 3
+    AITroopsSpawnerAmount: 1
+    AITArcherSpawnerAmount: 1
+    AIFlyingSpawnerAmount: 1
   HumanSpawnerContainer: {fileID: 992559406}
   AISpawnerContainer: {fileID: 1594660941}
   SpawnerPrefab: {fileID: 197666831678718805, guid: 94b56d47a0afe9b4093ea58b4762c7ff, type: 3}
@@ -8672,17 +8672,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ce873fbfa1fe4dbc3a5919c5a7a3bd02, type: 2}
   - {fileID: 2100000, guid: 027a76670530c7a95b67a4b2d4d572f4, type: 2}
   MeshRenderer: {fileID: 1059452374}
-  ObstacleSpawnBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+  BoundsList: []
   ObstacleSpawnBoundsMargin: 20
   SpawnerBoundsMargins: 20
-  PlayerUnitPlacementBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  AIUnitPlacementBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!64 &1059452373
 MeshCollider:
   m_ObjectHideFlags: 0
