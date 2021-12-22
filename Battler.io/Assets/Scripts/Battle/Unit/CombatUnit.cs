@@ -9,9 +9,8 @@ using UnityEngine.UI;
 
 namespace Battle.Unit
 {
-    public class CombatUnit : MonoBehaviour, IUnit
+    public class CombatUnit : MonoBehaviour
     {
-        [Header("Unit Info")]
         public string Name;
         public CombatAffiliation Owner;
         public CombatAffiliation Controller;
@@ -20,27 +19,17 @@ namespace Battle.Unit
         public UnitFaction Faction;
         public UnitMovementType MovementType;
         public Image Portrait;
-        [Header("Combat Information")]
         public CombatAffiliation Allies;
         public CombatAffiliation Enemies;
         public bool CanAttackMelee;
         public bool CanAttackRanged;
-        public float AttackCooldown;
-        public float MeleeDamage;
-        public float RangedDamage;
         public AttackRange MeleeRange;
         public AttackRange RangedRange;
-        [Header("Movement")]
-        public float MovementSpeed;
         public NavMeshAgent NavMeshAgent;
-        [Header("Vitality")]
-        public float HP;
-        public float DamageResist;
-        public float MagicResist;
-        [Header("Visibility")] 
         public Material Material;
         public Renderer Renderer;
         public bool IsVisible;
+        public UnitStats Stats;
 
         private void Awake()
         {
@@ -63,7 +52,7 @@ namespace Battle.Unit
             throw new NotImplementedException();
         }
 
-        public void DealDamage(IUnit target)
+        public void DealDamage(CombatUnit target)
         {
             throw new NotImplementedException();
         }
@@ -88,7 +77,7 @@ namespace Battle.Unit
             throw new NotImplementedException();
         }
 
-        public void TakeDamageFrom(IUnit enemy)
+        public void TakeDamageFrom(CombatUnit enemy)
         {
             throw new NotImplementedException();
         }
