@@ -242,7 +242,7 @@ MonoBehaviour:
   OffsetUpperLimit: 30
   MaxHealth: 100
   CurrentHealth: 0
-  IsWorking: 0
+  IsWorking: 1
   Faction: 0
   Type: 0
   IsDragged: 0
@@ -253,6 +253,9 @@ MonoBehaviour:
   - {fileID: 6791812743226128656, guid: 13d473143293fe34eb1760c102385c66, type: 3}
   - {fileID: 5442392793673677636, guid: 89454fd1b80408d4a9b8fdce17b32d68, type: 3}
   - {fileID: 686554296017995931, guid: e4247ba2ba3c4e44991ef1eb95a6bd5f, type: 3}
+  PlacementBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   Unit: {fileID: 1784619921839314846, guid: 6b09236122be711eb98e7678bc58db41, type: 3}
   Healthbar: {fileID: 197666831198300194}
 --- !u!23 &197666831678718806

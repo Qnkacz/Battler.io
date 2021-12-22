@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
     public bool IsDragged;
     public List<CombatUnit> Units;
     public Bounds PlacementBounds;
+    public Transform UnitContainer;
 
     public GameObject Unit;
     public Healthbar Healthbar;
@@ -43,8 +44,13 @@ public class Spawner : MonoBehaviour
         
         //selects proper unit from units list
         SelectProperUnit();
-
+        
+        //sets the placements where the spawner can be moved around
         SetPlacementBounds();
+        
+        //finds and sets the unit container
+        SetUnitContainer();
+        
         // Check whether we set any unit to spawn
         if (Unit == null)
         {
@@ -66,6 +72,8 @@ public class Spawner : MonoBehaviour
         //If is dragged make sure that the object is in the right bounds
         StayInBounds();
     }
+
+    private void SetUnitContainer()=>UnitContainer = GameObject.Find("UnitsContainer").transform;
     
 
     private void SetPlacementBounds()
@@ -100,6 +108,10 @@ public class Spawner : MonoBehaviour
             // Spawn the unit and move it
             GameObject NewUnit = Instantiate(Unit);
             NewUnit.transform.position = NewPosition;
+            
+            //Place the unit in the container
+            if (UnitContainer != null)
+                NewUnit.transform.parent = UnitContainer;
 
             // Reset the timer so cooldown is up
             Timer = 0;
@@ -132,6 +144,8 @@ public class Spawner : MonoBehaviour
             throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
         }
 
+        SetUnitOwner();
+        SetUnitController();
         Unit=foundUnit.gameObject;
     }
     //sets the chosen units owner
