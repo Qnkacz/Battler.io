@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour
     public UnitAttackType Type;
     public bool IsDragged;
     public List<CombatUnit> Units;
+    public Bounds PlacementBounds;
 
     public GameObject Unit;
     public Healthbar Healthbar;
@@ -43,6 +44,7 @@ public class Spawner : MonoBehaviour
         //selects proper unit from units list
         SelectProperUnit();
 
+        SetPlacementBounds();
         // Check whether we set any unit to spawn
         if (Unit == null)
         {
@@ -62,21 +64,26 @@ public class Spawner : MonoBehaviour
         // ------------------------------------------
         
         //If is dragged make sure that the object is in the right bounds
-        StayInBounds(Faction);
+        StayInBounds();
+    }
+    
+
+    private void SetPlacementBounds()
+    {
+        PlacementBounds = Controller switch
+        {
+            CombatAffiliation.Player => BoundsHelper.GetPlayerBounds(),
+            CombatAffiliation.AI => BoundsHelper.GetAIBounds(),
+            CombatAffiliation.Neutral => BoundsHelper.GetObstacleBounds(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
-    private void StayInBounds(UnitFaction faction)
+    private void StayInBounds()
     {
-        var bounds = faction switch
+        if (!PlacementBounds.Contains(transform.position) && IsDragged)
         {
-            UnitFaction.Human => BoundsHelper.GetPlayerBounds(),
-            UnitFaction.Undead => BoundsHelper.GetAIBounds(),
-            _ => throw new Exception("Bad faction")
-        };
-
-        if (!bounds.Contains(transform.position) && IsDragged)
-        {
-            transform.position = bounds.ClosestPoint(transform.position);
+            transform.position = PlacementBounds.ClosestPoint(transform.position);
         }
     }
 

@@ -7939,7 +7939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 992559407}
   m_Layer: 0
-  m_Name: HumanSpawners
+  m_Name: PlayerSpawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
