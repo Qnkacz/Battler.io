@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
     public CombatAffiliation Owner;
     public CombatAffiliation Controller;
     public int UnitCap;
+    public int UnitsSpawned;
     public float SpawnCooldown;
     public int OffsetUpperLimit;
     public int MaxHealth;
@@ -98,7 +99,7 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         // If cooldown is down
-        if (Timer >= SpawnCooldown && IsWorking)
+        if (CanSpawn())
         {
             // Randomize position fluctuation
             float[] Offset = { UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit), UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit) };
@@ -112,10 +113,20 @@ public class Spawner : MonoBehaviour
             //Place the unit in the container
             if (UnitContainer != null)
                 NewUnit.transform.parent = UnitContainer;
+            
+            //Adds one to the spawned count
+            UnitsSpawned++;
 
             // Reset the timer so cooldown is up
             Timer = 0;
         }
+    }
+
+    private bool CanSpawn()
+    {
+        var timerCondition = Timer >= SpawnCooldown;
+        var unitCondition = UnitCap > UnitsSpawned;
+        return (IsWorking && timerCondition && unitCondition);
     }
 
     public void TakeDamage(int DamageTaken)
