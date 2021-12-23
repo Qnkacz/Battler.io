@@ -104,13 +104,23 @@ namespace Battle.Unit
 
         private void ApplyFluctuation()
         {
-            CurrentStats.AttackCooldown =+ CurrentStats.AttackCooldown*Random.Range(-StatFluctuation.AttackSpeed, StatFluctuation.AttackSpeed);
-            CurrentStats.MeleeDamage =+ CurrentStats.MeleeDamage*Random.Range(-StatFluctuation.MeeleeDamage, StatFluctuation.MeeleeDamage);
-            CurrentStats.RangedDamage =+ CurrentStats.RangedDamage *Random.Range(-StatFluctuation.RangedDamage, StatFluctuation.RangedDamage);
-            CurrentStats.HP =+ CurrentStats.HP*Random.Range(-StatFluctuation.HP, StatFluctuation.HP);
-            CurrentStats.DamageResist =+ CurrentStats.DamageResist*Random.Range(-StatFluctuation.DamageResist, StatFluctuation.DamageResist);
-            CurrentStats.MagicResist =+CurrentStats.MagicResist* Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
-            CurrentStats.MovementSpeed =+ CurrentStats.MovementSpeed*Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
+            CurrentStats.AttackCooldown = +CurrentStats.AttackCooldown *
+                                          Random.Range(-StatFluctuation.AttackSpeed, StatFluctuation.AttackSpeed);
+            CurrentStats.MeleeDamage = +CurrentStats.MeleeDamage *
+                                       Random.Range(-StatFluctuation.MeeleeDamage, StatFluctuation.MeeleeDamage);
+            CurrentStats.RangedDamage = +CurrentStats.RangedDamage *
+                                        Random.Range(-StatFluctuation.RangedDamage, StatFluctuation.RangedDamage);
+            CurrentStats.HP = +CurrentStats.HP * Random.Range(-StatFluctuation.HP, StatFluctuation.HP);
+            CurrentStats.MeleeDamageResist = +CurrentStats.MeleeDamageResist *
+                                             Random.Range(-StatFluctuation.MeleeDamageResist,
+                                                 StatFluctuation.MeleeDamageResist);
+            CurrentStats.MagicResist = +CurrentStats.MagicResist *
+                                       Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
+            CurrentStats.MovementSpeed = +CurrentStats.MovementSpeed *
+                                         Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
+            CurrentStats.RangedDamageResist += CurrentStats.RangedDamageResist *
+                                               Random.Range(-StatFluctuation.RangedDamageResist,
+                                                   StatFluctuation.RangedDamageResist);
         }
 
         public void ChangeFactionTo(UnitFaction faction)

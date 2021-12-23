@@ -135,7 +135,8 @@ MonoBehaviour:
     RangedDamage: 7
     MovementSpeed: 1.5
     HP: 70
-    DamageResist: 5
+    MeleeDamageResist: 5
+    RangedDamageResist: 5
     MagicResist: 0
   CurrentStats:
     AttackCooldown: 0
@@ -143,16 +144,18 @@ MonoBehaviour:
     RangedDamage: 0
     MovementSpeed: 0
     HP: 0
-    DamageResist: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
     MagicResist: 0
   StatFluctuation:
     AttackSpeed: 0.617
     MeeleeDamage: 0.431
-    RangedDamage: 0.275
-    HP: 0.449
-    DamageResist: 0.539
-    MagicResist: 0.389
-    Speed: 0.263
+    RangedDamage: 0.572
+    HP: 0.629
+    MeleeDamageResist: 0.403
+    RangedDamageResist: 0.572
+    MagicResist: 0.621
+    Speed: 0.609
 --- !u!54 &8075001415184609438
 Rigidbody:
   m_ObjectHideFlags: 0

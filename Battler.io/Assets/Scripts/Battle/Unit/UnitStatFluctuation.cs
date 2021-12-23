@@ -10,7 +10,8 @@ namespace Battle.Unit
         [Range(0, 1)] public float MeeleeDamage;
         [Range(0, 1)] public float RangedDamage;
         [Range(0, 1)] public float HP;
-        [Range(0, 1)] public float DamageResist;
+        [Range(0, 1)] public float MeleeDamageResist;
+        [Range(0, 1)] public float RangedDamageResist;
         [Range(0, 1)] public float MagicResist;
         [Range(0, 1)] public float Speed;
     }

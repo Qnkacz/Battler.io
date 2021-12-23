@@ -10,7 +10,8 @@ namespace Battle.Unit
         public float RangedDamage;
         public float MovementSpeed;
         public float HP;
-        public float DamageResist;
+        public float MeleeDamageResist;
+        public float RangedDamageResist;
         public float MagicResist;
 
         public UnitStats ShallowCopy()
