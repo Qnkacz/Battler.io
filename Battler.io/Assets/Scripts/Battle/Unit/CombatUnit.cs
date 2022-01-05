@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ namespace Battle.Unit
         public bool IsVisible;
         public UnitStats BaseStats;
         public UnitStats CurrentStats;
+        public UnitStats TerrainBuff;
         public UnitStatFluctuation StatFluctuation;
 
         private void Awake()
@@ -99,7 +101,14 @@ namespace Battle.Unit
         private void SetupStats()
         {
             CurrentStats = BaseStats.ShallowCopy();
+            ApplyTerrainBuff();
             ApplyFluctuation();
+        }
+
+        private void ApplyTerrainBuff()
+        {
+            if (TerrainBuff == null) return;
+            CurrentStats.Add(TerrainBuff);
         }
 
         private void ApplyFluctuation()

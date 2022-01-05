@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 686554296017995935}
   - component: {fileID: 686554296017995920}
   - component: {fileID: 686554296017995921}
+  - component: {fileID: 6142028465988878295}
   m_Layer: 6
   m_Name: Undead_Trooper
   m_TagString: Untagged
@@ -134,6 +135,15 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+  TerrainBuff:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
   StatFluctuation:
     AttackSpeed: 0.09
     MeeleeDamage: 0.164
@@ -194,6 +204,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6142028465988878295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686554296017995930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb7c5e59853cc34fb9c5aacf4898627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffList:
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 10
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  ThisBiomeBuff:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
 --- !u!1 &686554296521064396
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1784619921839314852}
   - component: {fileID: 1784619921839314851}
   - component: {fileID: 5029324761703613058}
+  - component: {fileID: 5835286641402577472}
   m_Layer: 6
   m_Name: Flyer
   m_TagString: Untagged
@@ -195,6 +196,60 @@ NavMeshAgent:
   m_BaseOffset: 10
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5835286641402577472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784619921839314846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb7c5e59853cc34fb9c5aacf4898627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffList:
+  - AttackCooldown: -0.1
+    MeleeDamage: 1
+    RangedDamage: 2
+    MovementSpeed: 1
+    HP: 0
+    MeleeDamageResist: 2
+    RangedDamageResist: 4
+    MagicResist: 0
+  - AttackCooldown: -0.4
+    MeleeDamage: 0
+    RangedDamage: -3
+    MovementSpeed: -1.5
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: -0.2
+    MeleeDamage: 2
+    RangedDamage: 0
+    MovementSpeed: -1
+    HP: -10
+    MeleeDamageResist: -5
+    RangedDamageResist: -5
+    MagicResist: -10
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: -2
+    MovementSpeed: -0.3
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  ThisBiomeBuff:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
 --- !u!1 &1784619923300855892
 GameObject:
   m_ObjectHideFlags: 0

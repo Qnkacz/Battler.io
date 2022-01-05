@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5442392793673677636}
   - component: {fileID: 5442392793673677637}
   - component: {fileID: 7137538651789917478}
+  - component: {fileID: 8862134577064088713}
   m_Layer: 6
   m_Name: Undead_Shooter
   m_TagString: Untagged
@@ -147,6 +148,15 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+  TerrainBuff:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
   StatFluctuation:
     AttackSpeed: 0.168
     MeeleeDamage: 0.25
@@ -194,6 +204,60 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8862134577064088713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442392793673677647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb7c5e59853cc34fb9c5aacf4898627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffList:
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 10
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  - AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  ThisBiomeBuff:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
 --- !u!1 &5442392794706250656
 GameObject:
   m_ObjectHideFlags: 0

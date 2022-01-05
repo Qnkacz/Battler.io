@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Reflection;
+using Unity.VisualScripting.FullSerializer;
 
 namespace Battle.Unit
 {
@@ -16,7 +19,12 @@ namespace Battle.Unit
 
         public UnitStats ShallowCopy()
         {
-            return (UnitStats) this.MemberwiseClone();
+            return (UnitStats) MemberwiseClone();
+        }
+
+        public void Add(UnitStats variable)
+        {
+           //todo: zrobic to automatycznie
         }
     }
 }
