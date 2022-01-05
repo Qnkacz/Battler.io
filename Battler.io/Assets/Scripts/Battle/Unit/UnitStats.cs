@@ -24,7 +24,16 @@ namespace Battle.Unit
 
         public void Add(UnitStats variable)
         {
-           //todo: zrobic to automatycznie
+            var myFields = GetType().GetFields();
+            foreach (var field in myFields)
+            {
+                float thisValue = (float) field.GetValue(this);
+                float otherValue = (float) field.GetValue(variable);
+
+                float newValue = thisValue + otherValue;
+
+                field.SetValue(this, newValue);
+            }
         }
     }
 }
