@@ -36,6 +36,8 @@ namespace Battle.Unit
         public UnitStats TerrainBuff;
         public UnitStatFluctuation StatFluctuation;
 
+        public CombatUnit NearestEnemy;
+
         private void Awake()
         {
             Setup();
@@ -52,47 +54,88 @@ namespace Battle.Unit
             Renderer.material.color=unitColor;
         }
 
-        public void Attack()
+        public async Task Attack()
         {
-            throw new NotImplementedException();
+            //get list of enemies in range and calc their distance
+            var enemiesDistances = new List<Tuple<CombatUnit, float>>();
+            foreach (var combatUnit in RangedRange.UnitsInRange)
+            {
+                var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
+                enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
+            }
+            //pick the nearest enemy if there is one
+            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
+
+            await DealDamage(NearestEnemy);
         }
 
-        public void DealDamage(CombatUnit target)
+        private async Task DealDamage(CombatUnit target)
         {
-            throw new NotImplementedException();
+            //if target is inside meele damage do only meele damage
+            if (MeleeRange.Collider.bounds.Contains(target.transform.position) && CanAttackMelee)
+            {
+                await target.TakeDamageFrom(this,CurrentStats.MeleeDamage);
+                return;
+            }
+
+            //if target is ranged attack range then attack
+            if (RangedRange.Collider.bounds.Contains(target.transform.position) && CanAttackRanged)
+            {
+                await target.TakeDamageFrom(this,CurrentStats.RangedDamage);
+            }
         }
 
-        public void Despawn()
+        private void Despawn()
         {
-            throw new NotImplementedException();
+            Destroy(gameObject);
         }
 
-        public void Die()
+        private async Task Die()
         {
-            throw new NotImplementedException();
+            print($"{gameObject.name} has died");
+            await Task.Delay(5);
+            Despawn();
         }
 
         public void Move()
         {
             throw new NotImplementedException();
         }
-
-        public void Spawn()
+        private async Task TakeDamageFrom(CombatUnit enemy,float amount)
         {
-            throw new NotImplementedException();
+            float resist = enemy.AttackType switch
+            {
+                UnitAttackType.Melee => CurrentStats.MeleeDamageResist,
+                UnitAttackType.Range => CurrentStats.RangedDamageResist,
+                UnitAttackType.Flying => CurrentStats.MagicResist,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            CurrentStats.HP -= amount - resist;
+            if(CurrentStats.HP<0) await Die();
         }
 
-        public void TakeDamageFrom(CombatUnit enemy)
+        public void MoveTo(Vector3 position)
         {
-            throw new NotImplementedException();
+            NavMeshAgent.destination = position;
         }
 
-        public void MoveTo(Vector3 postiotion)
+        public void ChangeFactionTo(UnitFaction faction)
         {
-            throw new NotImplementedException();
+            this.Faction = faction;
         }
 
-        public void Setup()
+        public void SetOwner(CombatAffiliation owner)
+        {
+            this.Owner = owner;
+        }
+
+        public void SetController(CombatAffiliation controller)
+        {
+            this.Controller = controller;
+        }
+
+        private void Setup()
         {
             SetUnitColor();
             SetupStats();
@@ -132,19 +175,6 @@ namespace Battle.Unit
                                          Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
         }
 
-        public void ChangeFactionTo(UnitFaction faction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetOwner(CombatAffiliation owner)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetController(CombatAffiliation controller)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
