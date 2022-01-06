@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Battle.Map;
+using Helper;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -37,12 +42,25 @@ namespace Battle.Unit
         public UnitStatFluctuation StatFluctuation;
 
         public CombatUnit NearestEnemy;
+        
+        //Experimental multithread
+        private CancellationTokenSource _cancellationTokenSource;
 
         private void Awake()
         {
             Setup();
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
+        private void Start()
+        {
+            Life();
+        }
+
+        private async Task Life()
+        {
+            await FirstMove();
+        }
         private void SetUnitColor()
         {
             var unitColor = Faction switch
@@ -54,14 +72,29 @@ namespace Battle.Unit
             Renderer.material.color=unitColor;
         }
 
+        public async Task FirstMove()
+        {
+            var firstMoveDirection = Controller switch
+            {
+                CombatAffiliation.Player => BoundsHelper.GetAIBounds(),
+                CombatAffiliation.AI => BoundsHelper.GetPlayerBounds()
+            };
+
+            var direction = firstMoveDirection.center;
+            await Task.Delay(1000);
+            MoveTo(direction);
+        }
         public async Task Attack()
         {
             //get list of enemies in range and calc their distance
             var enemiesDistances = new List<Tuple<CombatUnit, float>>();
             foreach (var combatUnit in RangedRange.UnitsInRange)
             {
-                var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
-                enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
+                if (combatUnit.Controller == Controller)
+                {
+                    var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
+                    enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
+                }
             }
             //pick the nearest enemy if there is one
             NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
@@ -175,6 +208,9 @@ namespace Battle.Unit
                                          Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
         }
 
-        
+        private void OnDisable()
+        {
+            _cancellationTokenSource.Cancel();
+        }
     }
 }
