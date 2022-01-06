@@ -35,6 +35,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children:
   - {fileID: 292792792713252762}
+  - {fileID: 4124180153876446434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -112,18 +113,18 @@ MonoBehaviour:
   CanAttackMelee: 1
   CanAttackRanged: 0
   MeleeRange: {fileID: 292792792713252761}
-  RangedRange: {fileID: 0}
+  RangedRange: {fileID: 7906555617521023304}
   NavMeshAgent: {fileID: 292792791136467144}
   Material: {fileID: 2100000, guid: 0cb65d278c8fc24178ca72d939a59c77, type: 2}
   Renderer: {fileID: 292792791136467147}
   IsVisible: 0
   BaseStats:
     AttackCooldown: 0.5
-    MeleeDamage: 10
+    MeleeDamage: 40
     RangedDamage: 0
     MovementSpeed: 1
     HP: 100
-    MeleeDamageResist: 10
+    MeleeDamageResist: 1
     RangedDamageResist: 5
     MagicResist: 0
   CurrentStats:
@@ -153,6 +154,7 @@ MonoBehaviour:
     RangedDamageResist: 0.226
     MagicResist: 0.401
     Speed: 0.287
+  NearestEnemy: {fileID: 0}
 --- !u!195 &292792791136467144
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -317,4 +319,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 1
   Collider: {fileID: 292792792713252760}
+  UnitsInRange: []
+--- !u!1 &6113471013590300456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4124180153876446434}
+  - component: {fileID: 3059749253906907373}
+  - component: {fileID: 7906555617521023304}
+  m_Layer: 6
+  m_Name: RangedRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4124180153876446434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113471013590300456}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.388, z: 1}
+  m_Children: []
+  m_Father: {fileID: 292792791136467145}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3059749253906907373
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113471013590300456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7906555617521023304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113471013590300456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3c8601cc1ebb80995ed7dbf3adabdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 5
+  Collider: {fileID: 3059749253906907373}
   UnitsInRange: []

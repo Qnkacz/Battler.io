@@ -60,6 +60,28 @@ namespace Battle.Unit
         private async Task Life()
         {
             await FirstMove();
+            while (CurrentStats.HP>0)
+            {
+               await GetNearestEnemyInRange();
+               await Attack();
+            }
+        }
+
+        async Task GetNearestEnemyInRange()
+        {
+            //get list of enemies in range and calc their distance
+            var enemiesDistances = new List<Tuple<CombatUnit, float>>();
+            foreach (var combatUnit in RangedRange.UnitsInRange)
+            {
+                if (combatUnit.Controller != Controller)
+                {
+                    var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
+                    enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
+                }
+            }
+            //pick the nearest enemy if there is one
+            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
+            await Task.Delay(2000);
         }
         private void SetUnitColor()
         {
@@ -84,35 +106,26 @@ namespace Battle.Unit
             await Task.Delay(1000);
             MoveTo(direction);
         }
-        public async Task Attack()
-        {
-            //get list of enemies in range and calc their distance
-            var enemiesDistances = new List<Tuple<CombatUnit, float>>();
-            foreach (var combatUnit in RangedRange.UnitsInRange)
-            {
-                if (combatUnit.Controller == Controller)
-                {
-                    var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
-                    enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
-                }
-            }
-            //pick the nearest enemy if there is one
-            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
 
+        private async Task Attack()
+        {
+            if (NearestEnemy == null) return;
+            MoveTo(NearestEnemy.transform.position);
             await DealDamage(NearestEnemy);
+            await Task.Delay((int) CurrentStats.AttackCooldown * 1000);
         }
 
         private async Task DealDamage(CombatUnit target)
         {
             //if target is inside meele damage do only meele damage
-            if (MeleeRange.Collider.bounds.Contains(target.transform.position) && CanAttackMelee)
+            if (MeleeRange.UnitsInRange.Contains(target) && CanAttackMelee)
             {
                 await target.TakeDamageFrom(this,CurrentStats.MeleeDamage);
                 return;
             }
 
             //if target is ranged attack range then attack
-            if (RangedRange.Collider.bounds.Contains(target.transform.position) && CanAttackRanged)
+            if (RangedRange.UnitsInRange.Contains(target) && CanAttackRanged)
             {
                 await target.TakeDamageFrom(this,CurrentStats.RangedDamage);
             }
@@ -130,9 +143,12 @@ namespace Battle.Unit
             Despawn();
         }
 
-        public void Move()
+        private async Task Move()
         {
-            throw new NotImplementedException();
+            if (NearestEnemy != null)
+            {
+                await Attack();
+            }
         }
         private async Task TakeDamageFrom(CombatUnit enemy,float amount)
         {
@@ -144,11 +160,13 @@ namespace Battle.Unit
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            CurrentStats.HP -= amount - resist;
-            if(CurrentStats.HP<0) await Die();
+            var dmgTaken = Mathf.Max((amount-resist),0);
+            CurrentStats.HP -= dmgTaken;
+            print($"{gameObject.name} has taken: {dmgTaken} Damage!");
+            if(CurrentStats.HP<0) Die();
         }
 
-        public void MoveTo(Vector3 position)
+        private void MoveTo(Vector3 position)
         {
             NavMeshAgent.destination = position;
         }

@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Wing
-  Owner: 1
-  Controller: 1
+  Owner: 0
+  Controller: 0
   UnitType: 0
   AttackType: 2
   Faction: 0
@@ -141,22 +141,31 @@ MonoBehaviour:
   Enemies: 0
   CanAttackMelee: 1
   CanAttackRanged: 1
-  MeleeRange: {fileID: 0}
-  RangedRange: {fileID: 0}
-  NavMeshAgent: {fileID: 0}
+  MeleeRange: {fileID: 1784619923300855894}
+  RangedRange: {fileID: 1784619923349346530}
+  NavMeshAgent: {fileID: 5029324761703613058}
   Material: {fileID: 2100000, guid: 0cb65d278c8fc24178ca72d939a59c77, type: 2}
   Renderer: {fileID: 1784619921839314848}
   IsVisible: 0
   BaseStats:
     AttackCooldown: 0.9
-    MeleeDamage: 11
-    RangedDamage: 4
+    MeleeDamage: 44
+    RangedDamage: 16
     MovementSpeed: 2
     HP: 50
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
   CurrentStats:
+    AttackCooldown: 0
+    MeleeDamage: 0
+    RangedDamage: 0
+    MovementSpeed: 0
+    HP: 0
+    MeleeDamageResist: 0
+    RangedDamageResist: 0
+    MagicResist: 0
+  TerrainBuff:
     AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -174,6 +183,7 @@ MonoBehaviour:
     RangedDamageResist: 0.502
     MagicResist: 0.465
     Speed: 0.592
+  NearestEnemy: {fileID: 0}
 --- !u!195 &5029324761703613058
 NavMeshAgent:
   m_ObjectHideFlags: 0

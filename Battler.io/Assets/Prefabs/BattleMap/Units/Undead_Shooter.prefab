@@ -125,15 +125,15 @@ MonoBehaviour:
   CanAttackMelee: 0
   CanAttackRanged: 1
   MeleeRange: {fileID: 0}
-  RangedRange: {fileID: 0}
-  NavMeshAgent: {fileID: 0}
+  RangedRange: {fileID: 5442392794706250658}
+  NavMeshAgent: {fileID: 7137538651789917478}
   Material: {fileID: 2100000, guid: 0cb65d278c8fc24178ca72d939a59c77, type: 2}
   Renderer: {fileID: 5442392793673677641}
   IsVisible: 0
   BaseStats:
     AttackCooldown: 0.56
-    MeleeDamage: 3.6
-    RangedDamage: 8.4
+    MeleeDamage: 14.4
+    RangedDamage: 33.6
     MovementSpeed: 1.2
     HP: 84
     MeleeDamageResist: 6
@@ -166,6 +166,7 @@ MonoBehaviour:
     RangedDamageResist: 0.09
     MagicResist: 0.119
     Speed: 0.04
+  NearestEnemy: {fileID: 0}
 --- !u!54 &5442392793673677637
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -154,10 +154,9 @@ public class Spawner : MonoBehaviour
             gameObject.name += "BORKED!";
             throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
         }
-
+        Unit=foundUnit.gameObject;
         SetUnitOwner();
         SetUnitController();
-        Unit=foundUnit.gameObject;
     }
     //sets the chosen units owner
     private void SetUnitOwner(){
