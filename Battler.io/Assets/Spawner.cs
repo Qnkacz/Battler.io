@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     public int CurrentHealth;
 
     public bool IsWorking;
-    
+
     public UnitFaction Faction;
     public UnitAttackType Type;
     public bool IsDragged;
@@ -42,16 +42,16 @@ public class Spawner : MonoBehaviour
 
         // Set healthbar max value to spawners max healthbar
         Healthbar.SetMaxHealth(MaxHealth);
-        
+
         //selects proper unit from units list
         SelectProperUnit();
-        
+
         //sets the placements where the spawner can be moved around
         SetPlacementBounds();
-        
+
         //finds and sets the unit container
         SetUnitContainer();
-        
+
         // Check whether we set any unit to spawn
         if (Unit == null)
         {
@@ -69,13 +69,13 @@ public class Spawner : MonoBehaviour
         // ------------------------------------------
         Healthbar.SetHealth(CurrentHealth);
         // ------------------------------------------
-        
+
         //If is dragged make sure that the object is in the right bounds
         StayInBounds();
     }
 
-    private void SetUnitContainer()=>UnitContainer = GameObject.Find("UnitsContainer").transform;
-    
+    private void SetUnitContainer() => UnitContainer = GameObject.Find("UnitsContainer").transform;
+
 
     private void SetPlacementBounds()
     {
@@ -102,18 +102,30 @@ public class Spawner : MonoBehaviour
         if (CanSpawn())
         {
             // Randomize position fluctuation
-            float[] Offset = { UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit), UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit) };
+            float[] Offset =
+            {
+                UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit),
+                UnityEngine.Random.Range(-OffsetUpperLimit, OffsetUpperLimit)
+            };
             // Calculate Unit position with offset
             var NewPosition = transform.position + new Vector3(Offset[0], 0, Offset[1]);
 
             // Spawn the unit and move it
             GameObject NewUnit = Instantiate(Unit);
-            NewUnit.transform.position = NewPosition;
+            var unitScript = NewUnit.GetComponent<CombatUnit>();
             
+            //set unit controller
+            SetUnitController(unitScript);
+            
+            //set unit owner
+            SetUnitOwner(unitScript);
+            
+            NewUnit.transform.position = NewPosition;
+
             //Place the unit in the container
             if (UnitContainer != null)
                 NewUnit.transform.parent = UnitContainer;
-            
+
             //Adds one to the spawned count
             UnitsSpawned++;
 
@@ -136,6 +148,7 @@ public class Spawner : MonoBehaviour
             // Destroy object? Disable? Disable'n'move?
             Debug.Log("Spawner got rekt.");
         }
+
         Healthbar.SetHealth(CurrentHealth);
     }
 
@@ -148,21 +161,25 @@ public class Spawner : MonoBehaviour
     private void SelectProperUnit()
     {
         var foundUnit = Units.First(unit => (unit.Faction == Faction && unit.AttackType == Type));
-        
-        if(foundUnit==null){
-            IsWorking=false;
+
+        if (foundUnit == null)
+        {
+            IsWorking = false;
             gameObject.name += "BORKED!";
             throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
         }
-        Unit=foundUnit.gameObject;
-        SetUnitOwner();
-        SetUnitController();
+
+        Unit = foundUnit.gameObject;
     }
+
     //sets the chosen units owner
-    private void SetUnitOwner(){
-        Unit.GetComponent<CombatUnit>().Owner = this.Owner;
+    private void SetUnitOwner(CombatUnit unit)
+    {
+        unit.Owner = this.Owner;
     }
-    private void SetUnitController(){
-        Unit.GetComponent<CombatUnit>().Controller = this.Controller;
+
+    private void SetUnitController(CombatUnit unit)
+    {
+        unit.Controller = this.Controller;
     }
 }

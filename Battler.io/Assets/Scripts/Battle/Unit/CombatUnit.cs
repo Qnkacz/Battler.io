@@ -54,6 +54,7 @@ namespace Battle.Unit
 
         private void Start()
         {
+            SetUnitColor();
             Life();
         }
 
@@ -80,18 +81,29 @@ namespace Battle.Unit
                 }
             }
             //pick the nearest enemy if there is one
-            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
-            await Task.Delay(2000);
+            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
+            
+            //if we are ranged then we have to run from the nearest enemy
+            if (AttackType == UnitAttackType.Range && NearestEnemy!=null) FleeFrom(NearestEnemy);
+            
+            await Task.Delay(500);
         }
         private void SetUnitColor()
         {
-            var unitColor = Faction switch
+            var unitColor = Controller switch
             {
-                UnitFaction.Human=>Color.blue,
-                UnitFaction.Undead=>Color.red,
-                _ => throw new ArgumentOutOfRangeException()
+                CombatAffiliation.Player => Color.blue,
+                CombatAffiliation.AI => Color.red,
+                CombatAffiliation.Neutral => Color.gray,
             };
             Renderer.material.color=unitColor;
+        }
+
+        public void FleeFrom(CombatUnit enemy)
+        {
+            Vector3 enemyDirection = transform.position - enemy.transform.position;
+            Vector3 newPos = transform.position + enemyDirection;
+            MoveTo(newPos);
         }
 
         public async Task FirstMove()
