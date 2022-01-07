@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3531472670240517492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6946046341166882772}
+  - component: {fileID: 6159536231758283335}
+  - component: {fileID: 4122126185350105825}
+  m_Layer: 6
+  m_Name: MeleeRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6946046341166882772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531472670240517492}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.577319, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8075001415184609424}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6159536231758283335
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531472670240517492}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4122126185350105825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531472670240517492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3c8601cc1ebb80995ed7dbf3adabdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 1.5
+  Collider: {fileID: 6159536231758283335}
+  UnitsInRange: []
+  SpawnersInRange: []
 --- !u!1 &8075001415184609428
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,6 +96,7 @@ Transform:
   m_LocalScale: {x: 1, y: 3.88, z: 10}
   m_Children:
   - {fileID: 8075001416300019834}
+  - {fileID: 6946046341166882772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -124,7 +186,7 @@ MonoBehaviour:
   Enemies: 0
   CanAttackMelee: 0
   CanAttackRanged: 1
-  MeleeRange: {fileID: 0}
+  MeleeRange: {fileID: 4122126185350105825}
   RangedRange: {fileID: 8075001416300019833}
   NavMeshAgent: {fileID: 6384637515806324477}
   Material: {fileID: 2100000, guid: 0cb65d278c8fc24178ca72d939a59c77, type: 2}
@@ -133,7 +195,7 @@ MonoBehaviour:
   BaseStats:
     AttackCooldown: 0.7
     MeleeDamage: 12
-    RangedDamage: 28
+    RangedDamage: 14
     MovementSpeed: 1.5
     HP: 70
     MeleeDamageResist: 5
@@ -167,6 +229,7 @@ MonoBehaviour:
     MagicResist: 0.621
     Speed: 0.609
   NearestEnemy: {fileID: 0}
+  NearestEnemySpawner: {fileID: 0}
 --- !u!54 &8075001415184609438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -319,3 +382,4 @@ MonoBehaviour:
   Range: 5
   Collider: {fileID: 8075001416300019832}
   UnitsInRange: []
+  SpawnersInRange: []

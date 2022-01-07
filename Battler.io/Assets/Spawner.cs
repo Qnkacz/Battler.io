@@ -146,10 +146,12 @@ public class Spawner : MonoBehaviour
 
     public void TakeDamage(int DamageTaken)
     {
+        CurrentHealth -= DamageTaken;
         if (CurrentHealth <= 0)
         {
             // Destroy object? Disable? Disable'n'move?
             Debug.Log("Spawner got rekt.");
+            Destroy(gameObject);
         }
 
         Healthbar.SetHealth(CurrentHealth);

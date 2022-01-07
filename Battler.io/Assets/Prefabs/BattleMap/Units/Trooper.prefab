@@ -155,6 +155,7 @@ MonoBehaviour:
     MagicResist: 0.401
     Speed: 0.287
   NearestEnemy: {fileID: 0}
+  NearestEnemySpawner: {fileID: 0}
 --- !u!195 &292792791136467144
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -317,9 +318,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3c8601cc1ebb80995ed7dbf3adabdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 1
+  Range: 1.5
   Collider: {fileID: 292792792713252760}
   UnitsInRange: []
+  SpawnersInRange: []
 --- !u!1 &6113471013590300456
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,3 +382,4 @@ MonoBehaviour:
   Range: 5
   Collider: {fileID: 3059749253906907373}
   UnitsInRange: []
+  SpawnersInRange: []

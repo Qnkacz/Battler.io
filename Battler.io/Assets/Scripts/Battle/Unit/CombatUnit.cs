@@ -44,6 +44,7 @@ namespace Battle.Unit
         public UnitStatFluctuation StatFluctuation;
 
         public CombatUnit NearestEnemy;
+        public Spawner NearestEnemySpawner;
 
         private void Awake()
         {
@@ -60,6 +61,7 @@ namespace Battle.Unit
         { 
             FirstMove();
             StartCoroutine(GetNearestEnemyInRange());
+            StartCoroutine(GetNearestEnemySpawner());
             StartCoroutine(Move());
             StartCoroutine(Attack());
         }
@@ -89,6 +91,36 @@ namespace Battle.Unit
 
                 //pick the nearest enemy if there is one
                 NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
+                
+                //wait for x seconds
+                yield return new WaitForSeconds(.1f);
+            }
+        }
+        IEnumerator GetNearestEnemySpawner()
+        {
+            while (true)
+            {
+                //remove missing obj in list
+                RangedRange.SpawnersInRange = RangedRange.SpawnersInRange.Where(item => item != null).ToList();
+                
+                //get list of enemies in range and calc their distance
+                if (RangedRange.SpawnersInRange.Count == 0)
+                {
+                    NearestEnemySpawner = null;
+                }
+
+                var spawnersInDistance = new List<Tuple<Spawner, float>>();
+                foreach (var spawnerUnit in RangedRange.SpawnersInRange)
+                {
+                    if (spawnerUnit.Controller != Controller)
+                    {
+                        var distance = Vector3.Distance(spawnerUnit.transform.position, transform.position);
+                        spawnersInDistance.Add(new Tuple<Spawner, float>(spawnerUnit, distance));
+                    }
+                }
+
+                //pick the nearest enemy if there is one
+                NearestEnemySpawner = spawnersInDistance.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
                 
                 //wait for x seconds
                 yield return new WaitForSeconds(.1f);
@@ -133,10 +165,17 @@ namespace Battle.Unit
             {
                 if (NearestEnemy != null) 
                     DealDamage(NearestEnemy);
-
+                if(NearestEnemySpawner!=null)
+                    DealDamage(NearestEnemySpawner);
                 yield return new WaitForSeconds(CurrentStats.AttackCooldown);
             }
             
+        }
+
+        private void DealDamage(Spawner nearestEnemySpawner)
+        {
+            if(MeleeRange.SpawnersInRange.Contains(nearestEnemySpawner) && CanAttackMelee) nearestEnemySpawner.TakeDamage((int)CurrentStats.MeleeDamage);
+            if(CanAttackRanged) nearestEnemySpawner.TakeDamage((int)CurrentStats.RangedDamage);
         }
 
         private void DealDamage(CombatUnit target)
@@ -185,7 +224,9 @@ namespace Battle.Unit
                             FleeFrom(NearestEnemy);
                 }
                 
-                if(NavMeshAgent.speed==0) FirstMove();
+                if(NearestEnemySpawner!=null) MoveTo(NearestEnemySpawner.transform.position);
+                
+                if(NearestEnemySpawner == null && NearestEnemy == null) FirstMove();
 
                 yield return new WaitForSeconds(.1f);
             }
