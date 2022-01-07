@@ -22,6 +22,8 @@ public class BattleMapGeneratorManager : MonoBehaviour
     [Space(10)] public PlacementController PlacementController;
     [Space(10)] public UnitGenerator UnitGenerator;
 
+    public GameObject EndgameCanvas;
+
 
     private void Awake()
     {
@@ -44,6 +46,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
         BattleMap.SetBiome(Biome);
         ObstacleGeneratorManager.SpawnObstacles();
         SpawnerManager.SetupSpawners();
+        UnitGenerator.SetValuesFromSpawners();
         BattleMap.ResizeBoundsAfterGeneration();
         NavigationManager.BakeAll();
     }
@@ -55,7 +58,7 @@ public class BattleMapGeneratorManager : MonoBehaviour
 
     public void EndGame()
     {
-        print("endgame");
+        if (EndgameCanvas != null) EndgameCanvas.SetActive(true);
         Time.timeScale = 0;
     }
 }

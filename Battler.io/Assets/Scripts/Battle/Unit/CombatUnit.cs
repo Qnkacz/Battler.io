@@ -188,10 +188,6 @@ namespace Battle.Unit
             //if target is inside meele damage do only meele damage
             if (MeleeRange.UnitsInRange.Contains(target) && CanAttackMelee)
             {
-                if (Faction == UnitFaction.Undead)
-                {
-                    print("Dealing damage");
-                }
                 target.TakeDamageFrom(this, CurrentStats.MeleeDamage);
                 return;
             }

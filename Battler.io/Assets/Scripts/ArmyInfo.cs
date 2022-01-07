@@ -1,5 +1,6 @@
 using System;
 using Battle.Unit;
+using Unity.VisualScripting;
 
 namespace DefaultNamespace
 {
@@ -12,5 +13,10 @@ namespace DefaultNamespace
         public int FlyingAmount;
         public UnitFaction Faction;
         public CombatAffiliation Affiliation;
+
+        public void Clear()
+        {
+            TotalAmount = TroopAmount = ArcherAmount = FlyingAmount = 0;
+        }
     }
 }

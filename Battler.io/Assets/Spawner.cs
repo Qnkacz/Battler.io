@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     public Bounds PlacementBounds;
     public Transform UnitContainer;
 
-    public GameObject Unit;
+    public CombatUnit Unit;
     public Healthbar Healthbar;
 
     private float Timer;
@@ -114,7 +114,7 @@ public class Spawner : MonoBehaviour
             var NewPosition = transform.position + new Vector3(Offset[0], 0, Offset[1]);
 
             // Spawn the unit and move it
-            GameObject NewUnit = Instantiate(Unit);
+            GameObject NewUnit = Instantiate(Unit.gameObject);
             var unitScript = NewUnit.GetComponent<CombatUnit>();
             
             //set unit controller
@@ -175,7 +175,7 @@ public class Spawner : MonoBehaviour
             throw new Exception($"spawner: {gameObject.name} couldn't find proper unit in list");
         }
 
-        Unit = foundUnit.gameObject;
+        Unit = foundUnit;
     }
 
     //sets the chosen units owner
