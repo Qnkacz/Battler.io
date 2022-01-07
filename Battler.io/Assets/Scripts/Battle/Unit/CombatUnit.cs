@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,6 +10,7 @@ using Battle.Map;
 using Helper;
 using UI;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -42,14 +44,10 @@ namespace Battle.Unit
         public UnitStatFluctuation StatFluctuation;
 
         public CombatUnit NearestEnemy;
-        
-        //Experimental multithread
-        private CancellationTokenSource _cancellationTokenSource;
 
         private void Awake()
         {
             Setup();
-            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         private void Start()
@@ -58,36 +56,42 @@ namespace Battle.Unit
             Life();
         }
 
-        private async Task Life()
+        private void Life()
+        { 
+            //FirstMove();
+            StartCoroutine(GetNearestEnemyInRange());
+            StartCoroutine(Move());
+            StartCoroutine(Attack());
+        }
+
+        IEnumerator GetNearestEnemyInRange()
         {
-            await FirstMove();
-            while (CurrentStats.HP>0)
+            while (true)
             {
-               await GetNearestEnemyInRange();
-               await Attack();
+                //get list of enemies in range and calc their distance
+                if (RangedRange.UnitsInRange.Count == 0)
+                {
+                    NearestEnemy = null;
+                }
+
+                var enemiesDistances = new List<Tuple<CombatUnit, float>>();
+                foreach (var combatUnit in RangedRange.UnitsInRange)
+                {
+                    if (combatUnit.Controller != Controller)
+                    {
+                        var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
+                        enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit, distance));
+                    }
+                }
+
+                //pick the nearest enemy if there is one
+                NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
+                
+                //wait for x seconds
+                yield return new WaitForSeconds(.1f);
             }
         }
 
-        async Task GetNearestEnemyInRange()
-        {
-            //get list of enemies in range and calc their distance
-            var enemiesDistances = new List<Tuple<CombatUnit, float>>();
-            foreach (var combatUnit in RangedRange.UnitsInRange)
-            {
-                if (combatUnit.Controller != Controller)
-                {
-                    var distance = Vector3.Distance(combatUnit.transform.position, transform.position);
-                    enemiesDistances.Add(new Tuple<CombatUnit, float>(combatUnit,distance));
-                }
-            }
-            //pick the nearest enemy if there is one
-            NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
-            
-            //if we are ranged then we have to run from the nearest enemy
-            if (AttackType == UnitAttackType.Range && NearestEnemy!=null) FleeFrom(NearestEnemy);
-            
-            await Task.Delay(500);
-        }
         private void SetUnitColor()
         {
             var unitColor = Controller switch
@@ -96,17 +100,17 @@ namespace Battle.Unit
                 CombatAffiliation.AI => Color.red,
                 CombatAffiliation.Neutral => Color.gray,
             };
-            Renderer.material.color=unitColor;
+            Renderer.material.color = unitColor;
         }
 
-        public void FleeFrom(CombatUnit enemy)
+        private void FleeFrom(CombatUnit enemy)
         {
             Vector3 enemyDirection = transform.position - enemy.transform.position;
-            Vector3 newPos = transform.position + enemyDirection;
+            Vector3 newPos = transform.position + enemyDirection ;
             MoveTo(newPos);
         }
 
-        public async Task FirstMove()
+        public void FirstMove()
         {
             var firstMoveDirection = Controller switch
             {
@@ -115,31 +119,34 @@ namespace Battle.Unit
             };
 
             var direction = firstMoveDirection.center;
-            await Task.Delay(1000);
             MoveTo(direction);
         }
 
-        private async Task Attack()
+        private IEnumerator Attack()
         {
-            if (NearestEnemy == null) return;
-            MoveTo(NearestEnemy.transform.position);
-            await DealDamage(NearestEnemy);
-            await Task.Delay((int) CurrentStats.AttackCooldown * 1000);
+            while (true)
+            {
+                if (NearestEnemy != null) 
+                    DealDamage(NearestEnemy);
+
+                yield return new WaitForSeconds(CurrentStats.AttackCooldown);
+            }
+            
         }
 
-        private async Task DealDamage(CombatUnit target)
+        private void DealDamage(CombatUnit target)
         {
             //if target is inside meele damage do only meele damage
             if (MeleeRange.UnitsInRange.Contains(target) && CanAttackMelee)
             {
-                await target.TakeDamageFrom(this,CurrentStats.MeleeDamage);
+                target.TakeDamageFrom(this, CurrentStats.MeleeDamage);
                 return;
             }
 
             //if target is ranged attack range then attack
             if (RangedRange.UnitsInRange.Contains(target) && CanAttackRanged)
             {
-                await target.TakeDamageFrom(this,CurrentStats.RangedDamage);
+                target.TakeDamageFrom(this, CurrentStats.RangedDamage);
             }
         }
 
@@ -148,21 +155,31 @@ namespace Battle.Unit
             Destroy(gameObject);
         }
 
-        private async Task Die()
+        private void Die()
         {
             print($"{gameObject.name} has died");
-            await Task.Delay(5);
             Despawn();
         }
 
-        private async Task Move()
+        private IEnumerator Move()
         {
-            if (NearestEnemy != null)
+            while (true)
             {
-                await Attack();
+                if (NearestEnemy != null)
+                {
+                    if (AttackType == UnitAttackType.Range) FleeFrom(NearestEnemy);
+                    else
+                    {
+                        MoveTo(NearestEnemy.transform.position);
+                    }
+                }
+
+                yield return new WaitForSeconds(.1f);
             }
+            
         }
-        private async Task TakeDamageFrom(CombatUnit enemy,float amount)
+
+        private void TakeDamageFrom(CombatUnit enemy, float amount)
         {
             float resist = enemy.AttackType switch
             {
@@ -172,10 +189,10 @@ namespace Battle.Unit
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            var dmgTaken = Mathf.Max((amount-resist),0);
+            var dmgTaken = Mathf.Max((amount - resist), 0);
             CurrentStats.HP -= dmgTaken;
             print($"{gameObject.name} has taken: {dmgTaken} Damage!");
-            if(CurrentStats.HP<0) Die();
+            if (CurrentStats.HP < 0) Die();
         }
 
         private void MoveTo(Vector3 position)
@@ -220,27 +237,22 @@ namespace Battle.Unit
         private void ApplyFluctuation()
         {
             CurrentStats.AttackCooldown += CurrentStats.AttackCooldown *
-                                          Random.Range(-StatFluctuation.AttackSpeed, StatFluctuation.AttackSpeed);
-            CurrentStats.MeleeDamage +=CurrentStats.MeleeDamage *
-                                       Random.Range(-StatFluctuation.MeeleeDamage, StatFluctuation.MeeleeDamage);
+                                           Random.Range(-StatFluctuation.AttackSpeed, StatFluctuation.AttackSpeed);
+            CurrentStats.MeleeDamage += CurrentStats.MeleeDamage *
+                                        Random.Range(-StatFluctuation.MeeleeDamage, StatFluctuation.MeeleeDamage);
             CurrentStats.RangedDamage += CurrentStats.RangedDamage *
-                                        Random.Range(-StatFluctuation.RangedDamage, StatFluctuation.RangedDamage);
+                                         Random.Range(-StatFluctuation.RangedDamage, StatFluctuation.RangedDamage);
             CurrentStats.HP += CurrentStats.HP * Random.Range(-StatFluctuation.HP, StatFluctuation.HP);
             CurrentStats.MeleeDamageResist += CurrentStats.MeleeDamageResist *
-                                             Random.Range(-StatFluctuation.MeleeDamageResist,
-                                                 StatFluctuation.MeleeDamageResist);
+                                              Random.Range(-StatFluctuation.MeleeDamageResist,
+                                                  StatFluctuation.MeleeDamageResist);
             CurrentStats.RangedDamageResist += CurrentStats.RangedDamageResist *
                                                Random.Range(-StatFluctuation.RangedDamageResist,
                                                    StatFluctuation.RangedDamageResist);
             CurrentStats.MagicResist += CurrentStats.MagicResist *
-                                       Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
+                                        Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
             CurrentStats.MovementSpeed += CurrentStats.MovementSpeed *
-                                         Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
-        }
-
-        private void OnDisable()
-        {
-            _cancellationTokenSource.Cancel();
+                                          Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
         }
     }
 }
