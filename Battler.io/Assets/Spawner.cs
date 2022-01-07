@@ -150,6 +150,7 @@ public class Spawner : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             // Destroy object? Disable? Disable'n'move?
+            ArmyHelper.RemoveUnit(Controller,Unit.GetComponent<CombatUnit>().AttackType,UnitCap-UnitsSpawned);
             Debug.Log("Spawner got rekt.");
             Destroy(gameObject);
         }

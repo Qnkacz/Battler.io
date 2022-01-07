@@ -13,7 +13,7 @@ public class UnitGenerator : MonoBehaviour
     public int AIUnitCap;
 
     //List of army infos
-    public List<ArmyInfo> ArmyList;
+    public List<ArmyInfo> StartArmyList;
 
     public void SetOptionsFromUI(int HTCap, int ATCap,
         int [] HumanUnitTotals, int [] AIUnitTotals)
@@ -45,7 +45,7 @@ public class UnitGenerator : MonoBehaviour
         };
         
         //put Infos to the list
-        ArmyList.Add(humanArmy);
-        ArmyList.Add(undeadArmy);
+        StartArmyList.Add(humanArmy);
+        StartArmyList.Add(undeadArmy);
     }
 }

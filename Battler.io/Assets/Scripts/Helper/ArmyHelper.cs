@@ -18,7 +18,7 @@ namespace Helper
         /// <returns>int</returns>
         public static int GetUnitMaxAmount(CombatAffiliation affiliation, UnitAttackType type)
         {
-            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==affiliation);
+            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.StartArmyList.First(info => info.Affiliation==affiliation);
             var value = type switch
             {
                 UnitAttackType.Melee => armyInfo.TroopAmount,
@@ -37,7 +37,7 @@ namespace Helper
         /// <returns>int</returns>
         public static int GetOwnerMaxUnits(CombatAffiliation owner)
         {
-            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==owner);
+            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.StartArmyList.First(info => info.Affiliation==owner);
             return armyInfo.TotalAmount;
         }
 
@@ -48,7 +48,31 @@ namespace Helper
         /// <returns>ArmyInfo</returns>
         public static ArmyInfo GetArmyInfo(CombatAffiliation affiliation)
         {
-            return BattleMapGeneratorManager.GameManager.UnitGenerator.ArmyList.First(info => info.Affiliation==affiliation);
+            return BattleMapGeneratorManager.GameManager.UnitGenerator.StartArmyList.First(info => info.Affiliation==affiliation);
+        }
+
+        public static void RemoveUnit(CombatAffiliation controller, UnitAttackType type, int amount)
+        {
+            
+            var armyInfo = BattleMapGeneratorManager.GameManager.UnitGenerator.StartArmyList.First(info => info.Affiliation==controller);
+            switch (type)
+            {
+               case UnitAttackType.Melee:
+                   armyInfo.TroopAmount -= amount;
+                   break;
+               case UnitAttackType.Range:
+                   armyInfo.ArcherAmount -= amount;
+                   break;
+               case UnitAttackType.Flying:
+                   armyInfo.FlyingAmount -= amount;
+                   break;
+            }
+
+            armyInfo.TotalAmount -= amount;
+            if (armyInfo.TotalAmount == 0)
+            {
+                BattleMapGeneratorManager.GameManager.EndGame();
+            }
         }
     }
 }

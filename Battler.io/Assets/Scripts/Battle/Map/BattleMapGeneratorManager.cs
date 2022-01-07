@@ -52,4 +52,10 @@ public class BattleMapGeneratorManager : MonoBehaviour
     {
         Biome = biome;
     }
+
+    public void EndGame()
+    {
+        print("endgame");
+        Time.timeScale = 0;
+    }
 }

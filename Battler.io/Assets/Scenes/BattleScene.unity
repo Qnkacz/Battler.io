@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 102776002}
   - component: {fileID: 102776003}
   - component: {fileID: 102776004}
+  - component: {fileID: 102776005}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -768,6 +769,7 @@ MonoBehaviour:
   SpawnerManager: {fileID: 102776003}
   PlacementController: {fileID: 102776004}
   UnitGenerator: {fileID: 102776002}
+  StageController: {fileID: 102776005}
 --- !u!4 &102775999
 Transform:
   m_ObjectHideFlags: 0
@@ -881,6 +883,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currDraggableObject: {fileID: 0}
+--- !u!114 &102776005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102775997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ab8aaaac20608a3aacd343fe792c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &120746698
 GameObject:
   m_ObjectHideFlags: 0

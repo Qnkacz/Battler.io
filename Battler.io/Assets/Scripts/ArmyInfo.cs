@@ -4,7 +4,7 @@ using Battle.Unit;
 namespace DefaultNamespace
 {
     [Serializable]
-    public struct ArmyInfo
+    public class ArmyInfo
     {
         public int TotalAmount;
         public int TroopAmount;

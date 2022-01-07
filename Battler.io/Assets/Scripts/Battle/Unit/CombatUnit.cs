@@ -54,12 +54,12 @@ namespace Battle.Unit
         private void Start()
         {
             SetUnitColor();
+            //FirstMove();
             Life();
         }
 
         private void Life()
         { 
-            FirstMove();
             StartCoroutine(GetNearestEnemyInRange());
             StartCoroutine(GetNearestEnemySpawner());
             StartCoroutine(Move());
@@ -90,7 +90,7 @@ namespace Battle.Unit
                 }
 
                 //pick the nearest enemy if there is one
-                NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
+                NearestEnemy = enemiesDistances.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
                 
                 //wait for x seconds
                 yield return new WaitForSeconds(.1f);
@@ -120,7 +120,7 @@ namespace Battle.Unit
                 }
 
                 //pick the nearest enemy if there is one
-                NearestEnemySpawner = spawnersInDistance.OrderBy(enemy => enemy.Item2).LastOrDefault()?.Item1;
+                NearestEnemySpawner = spawnersInDistance.OrderBy(enemy => enemy.Item2).FirstOrDefault()?.Item1;
                 
                 //wait for x seconds
                 yield return new WaitForSeconds(.1f);
@@ -163,10 +163,14 @@ namespace Battle.Unit
         {
             while (true)
             {
-                if (NearestEnemy != null) 
+                if (NearestEnemy != null)
+                {
                     DealDamage(NearestEnemy);
-                if(NearestEnemySpawner!=null)
+                }
+                if (NearestEnemySpawner != null)
+                {
                     DealDamage(NearestEnemySpawner);
+                }
                 yield return new WaitForSeconds(CurrentStats.AttackCooldown);
             }
             
@@ -180,9 +184,14 @@ namespace Battle.Unit
 
         private void DealDamage(CombatUnit target)
         {
+            
             //if target is inside meele damage do only meele damage
             if (MeleeRange.UnitsInRange.Contains(target) && CanAttackMelee)
             {
+                if (Faction == UnitFaction.Undead)
+                {
+                    print("Dealing damage");
+                }
                 target.TakeDamageFrom(this, CurrentStats.MeleeDamage);
                 return;
             }
@@ -201,7 +210,7 @@ namespace Battle.Unit
 
         private void Die()
         {
-            print($"{gameObject.name} has died");
+            ArmyHelper.RemoveUnit(Controller,AttackType,1);
             Despawn();
         }
 
