@@ -35,6 +35,9 @@ public class Spawner : MonoBehaviour
 
     public void Start()
     {
+        //get health up and running
+        CurrentHealth = MaxHealth;
+        
         // Initiate timer and make sure cap and cd are unsigned.
         Timer = 0;
         SpawnCooldown = Mathf.Abs(SpawnCooldown);

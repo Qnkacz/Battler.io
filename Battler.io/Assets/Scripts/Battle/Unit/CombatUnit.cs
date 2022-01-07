@@ -58,7 +58,7 @@ namespace Battle.Unit
 
         private void Life()
         { 
-            //FirstMove();
+            FirstMove();
             StartCoroutine(GetNearestEnemyInRange());
             StartCoroutine(Move());
             StartCoroutine(Attack());
@@ -68,6 +68,9 @@ namespace Battle.Unit
         {
             while (true)
             {
+                //remove missing obj in list
+                RangedRange.UnitsInRange = RangedRange.UnitsInRange.Where(item => item != null).ToList();
+                
                 //get list of enemies in range and calc their distance
                 if (RangedRange.UnitsInRange.Count == 0)
                 {
@@ -105,13 +108,15 @@ namespace Battle.Unit
 
         private void FleeFrom(CombatUnit enemy)
         {
+            
             Vector3 enemyDirection = transform.position - enemy.transform.position;
-            Vector3 newPos = transform.position + enemyDirection ;
+            Vector3 newPos = transform.position + enemyDirection + new Vector3(RangedRange.Range*1.5f,0,RangedRange.Range*1.5f);
             MoveTo(newPos);
         }
 
         public void FirstMove()
         {
+            NavMeshAgent.isStopped = false;
             var firstMoveDirection = Controller switch
             {
                 CombatAffiliation.Player => BoundsHelper.GetAIBounds(),
@@ -165,14 +170,22 @@ namespace Battle.Unit
         {
             while (true)
             {
-                if (NearestEnemy != null)
+                NavMeshAgent.isStopped = false;
+                if (AttackType == UnitAttackType.Melee)
                 {
-                    if (AttackType == UnitAttackType.Range) FleeFrom(NearestEnemy);
-                    else
+                    if (NearestEnemy != null)
                     {
                         MoveTo(NearestEnemy.transform.position);
                     }
                 }
+                else
+                {
+                        NavMeshAgent.isStopped = false;
+                        if(NearestEnemy!=null)
+                            FleeFrom(NearestEnemy);
+                }
+                
+                if(NavMeshAgent.speed==0) FirstMove();
 
                 yield return new WaitForSeconds(.1f);
             }
