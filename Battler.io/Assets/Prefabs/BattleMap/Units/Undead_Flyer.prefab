@@ -156,6 +156,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 10
   CurrentStats:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -165,6 +167,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   TerrainBuff:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -174,6 +178,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   StatFluctuation:
     AttackSpeed: 0.106
     MeeleeDamage: 0.189
@@ -183,7 +189,10 @@ MonoBehaviour:
     RangedDamageResist: 0.164
     MagicResist: 0.147
     Speed: 0.164
+    AmmoCapacity: 3
+  CanAttack: 0
   NearestEnemy: {fileID: 0}
+  NearestEnemySpawner: {fileID: 0}
 --- !u!195 &238307947968212017
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -227,6 +236,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: -4
     RangedDamage: -3
@@ -235,6 +246,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -243,6 +256,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -251,6 +266,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   ThisBiomeBuff:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -260,6 +277,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
 --- !u!1 &6791812744682741479
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +339,7 @@ MonoBehaviour:
   Range: 1
   Collider: {fileID: 6791812744682741476}
   UnitsInRange: []
+  SpawnersInRange: []
 --- !u!1 &6791812744735962707
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,3 +400,4 @@ MonoBehaviour:
   Range: 3.5
   Collider: {fileID: 6791812744735962704}
   UnitsInRange: []
+  SpawnersInRange: []

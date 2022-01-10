@@ -42,8 +42,7 @@ namespace Battle.Unit
         public UnitStats CurrentStats;
         public UnitStats TerrainBuff;
         public UnitStatFluctuation StatFluctuation;
-        public bool CanAttack;
-
+        
         public CombatUnit NearestEnemy;
         public Spawner NearestEnemySpawner;
 
@@ -164,7 +163,7 @@ namespace Battle.Unit
         {
             while (true)
             {
-                if (AttackType == UnitAttackType.Range || AttackType == UnitAttackType.Flying || CurrentStats.CurrAmmoAmount==0)
+                if (AttackType == UnitAttackType.Range || AttackType == UnitAttackType.Flying || CurrentStats.CurrAmmoAmount<=0)
                 {
                     CanAttackRanged = false;
                 }
