@@ -42,6 +42,7 @@ namespace Battle.Unit
         public UnitStats CurrentStats;
         public UnitStats TerrainBuff;
         public UnitStatFluctuation StatFluctuation;
+        public bool CanAttack;
 
         public CombatUnit NearestEnemy;
         public Spawner NearestEnemySpawner;
@@ -163,6 +164,10 @@ namespace Battle.Unit
         {
             while (true)
             {
+                if (AttackType == UnitAttackType.Range || AttackType == UnitAttackType.Flying || CurrentStats.CurrAmmoAmount==0)
+                {
+                    CanAttackRanged = false;
+                }
                 if (NearestEnemy != null)
                 {
                     DealDamage(NearestEnemy);
@@ -179,7 +184,11 @@ namespace Battle.Unit
         private void DealDamage(Spawner nearestEnemySpawner)
         {
             if(MeleeRange.SpawnersInRange.Contains(nearestEnemySpawner) && CanAttackMelee) nearestEnemySpawner.TakeDamage((int)CurrentStats.MeleeDamage);
-            if(CanAttackRanged) nearestEnemySpawner.TakeDamage((int)CurrentStats.RangedDamage);
+            if (CanAttackRanged)
+            {
+                nearestEnemySpawner.TakeDamage((int)CurrentStats.RangedDamage);
+                CurrentStats.CurrAmmoAmount--;
+            }
         }
 
         private void DealDamage(CombatUnit target)
@@ -312,6 +321,7 @@ namespace Battle.Unit
                                         Random.Range(-StatFluctuation.MagicResist, StatFluctuation.MagicResist);
             CurrentStats.MovementSpeed += CurrentStats.MovementSpeed *
                                           Random.Range(-StatFluctuation.Speed, StatFluctuation.Speed);
+            CurrentStats.AmmoCapacity += Random.Range(-StatFluctuation.AmmoCapacity, StatFluctuation.AmmoCapacity);
         }
     }
 }

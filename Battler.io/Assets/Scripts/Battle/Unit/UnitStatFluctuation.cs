@@ -14,5 +14,6 @@ namespace Battle.Unit
         [Range(0, 1)] public float RangedDamageResist;
         [Range(0, 1)] public float MagicResist;
         [Range(0, 1)] public float Speed;
+        [Range(0, 30)] public int AmmoCapacity;
     }
 }
