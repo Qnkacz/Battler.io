@@ -40,7 +40,7 @@ namespace Battle.Unit
         public bool IsVisible;
         public UnitStats BaseStats;
         public UnitStats CurrentStats;
-        public UnitStats TerrainBuff;
+        public TerrainBuff TerrainBuff;
         public UnitStatFluctuation StatFluctuation;
         
         public CombatUnit NearestEnemy;
@@ -163,7 +163,7 @@ namespace Battle.Unit
         {
             while (true)
             {
-                if (AttackType == UnitAttackType.Range || AttackType == UnitAttackType.Flying || CurrentStats.CurrAmmoAmount<=0)
+                if (AttackType == UnitAttackType.Range || AttackType == UnitAttackType.Flying || CurrentStats.CurrAmmoAmount<1)
                 {
                     CanAttackRanged = false;
                 }
@@ -233,7 +233,7 @@ namespace Battle.Unit
                 else
                 {
                         NavMeshAgent.isStopped = false;
-                        if(NearestEnemy!=null)
+                        if(NearestEnemy!=null && CanAttackRanged)
                             FleeFrom(NearestEnemy);
                 }
                 
@@ -298,7 +298,7 @@ namespace Battle.Unit
         private void ApplyTerrainBuff()
         {
             if (TerrainBuff == null) return;
-            CurrentStats.Add(TerrainBuff);
+            CurrentStats.Add(TerrainBuff.ThisBiomeBuff);
         }
 
         private void ApplyFluctuation()

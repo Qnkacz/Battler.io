@@ -15,9 +15,9 @@ namespace Battle.Unit
         public float HP;
         public float MeleeDamageResist;
         public float RangedDamageResist;
-        public float MagicResist;
-        public int AmmoCapacity;
-        public int CurrAmmoAmount;
+        public float MagicResist; 
+        public float AmmoCapacity;
+        public float CurrAmmoAmount;
 
         public UnitStats ShallowCopy()
         {

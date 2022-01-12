@@ -201,8 +201,8 @@ MonoBehaviour:
     MeleeDamageResist: 5
     RangedDamageResist: 5
     MagicResist: 0
-    AmmoCapacity: 0
-    CurrAmmoAmount: 30
+    AmmoCapacity: 30
+    CurrAmmoAmount: 0
   CurrentStats:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -214,17 +214,7 @@ MonoBehaviour:
     MagicResist: 0
     AmmoCapacity: 0
     CurrAmmoAmount: 0
-  TerrainBuff:
-    AttackCooldown: 0
-    MeleeDamage: 0
-    RangedDamage: 0
-    MovementSpeed: 0
-    HP: 0
-    MeleeDamageResist: 0
-    RangedDamageResist: 0
-    MagicResist: 0
-    AmmoCapacity: 0
-    CurrAmmoAmount: 0
+  TerrainBuff: {fileID: 2697689457351578942}
   StatFluctuation:
     AttackSpeed: 0.617
     MeeleeDamage: 0.431
@@ -235,7 +225,6 @@ MonoBehaviour:
     MagicResist: 0.621
     Speed: 0.609
     AmmoCapacity: 6
-  CanAttack: 0
   NearestEnemy: {fileID: 0}
   NearestEnemySpawner: {fileID: 0}
 --- !u!54 &8075001415184609438

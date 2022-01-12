@@ -127,6 +127,8 @@ MonoBehaviour:
     MeleeDamageResist: 2
     RangedDamageResist: 6
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   CurrentStats:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -136,15 +138,9 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
-  TerrainBuff:
-    AttackCooldown: 0
-    MeleeDamage: 0
-    RangedDamage: 0
-    MovementSpeed: 0
-    HP: 0
-    MeleeDamageResist: 0
-    RangedDamageResist: 0
-    MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
+  TerrainBuff: {fileID: 6142028465988878295}
   StatFluctuation:
     AttackSpeed: 0.09
     MeeleeDamage: 0.164
@@ -154,6 +150,7 @@ MonoBehaviour:
     RangedDamageResist: 0.131
     MagicResist: 0.061
     Speed: 0.143
+    AmmoCapacity: 0
   NearestEnemy: {fileID: 0}
   NearestEnemySpawner: {fileID: 0}
 --- !u!195 &686554296017995935
@@ -228,6 +225,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -236,6 +235,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -244,6 +245,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   - AttackCooldown: 0
     MeleeDamage: 0
     RangedDamage: 0
@@ -252,6 +255,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
   ThisBiomeBuff:
     AttackCooldown: 0
     MeleeDamage: 0
@@ -261,6 +266,8 @@ MonoBehaviour:
     MeleeDamageResist: 0
     RangedDamageResist: 0
     MagicResist: 0
+    AmmoCapacity: 0
+    CurrAmmoAmount: 0
 --- !u!1 &686554296521064396
 GameObject:
   m_ObjectHideFlags: 0
